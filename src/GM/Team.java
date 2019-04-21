@@ -1,10 +1,10 @@
-Package Team
+package GM;
 
-import java.sql.*;
+import java.util.HashMap;
+import GM.Player;
 
-Public Class Team
-{
-	public int wins, losses;
-	public double salary_cap, payroll, lux_tax, profit, ticket, scouting, coaching, health, facilites;
-	public String[] players = new String[15];
+public class Team {
+    public HashMap<String, Player> roster;
+    public int wins, losses;
+    public double salary_cap, payroll, lux_tax, profit, ticket, scouting, coaching, health, facilites;
 }

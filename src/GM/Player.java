@@ -1,9 +1,6 @@
-Package Player
+package GM;
 
-import java.sql.*;
-
-Public Class Player 
-{
-	int age;
-	string team;
+public class Player {
+    int age;
+    String team;
 }
