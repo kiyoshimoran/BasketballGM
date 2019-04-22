@@ -25,6 +25,7 @@ public class NavigationStack
         if(stageStack.isEmpty())
         {
             Stage initialView = getStage(resource);
+            System.out.println(resource);
             stageStack.push(initialView);
             initialView.show();
         }
@@ -78,10 +79,11 @@ public class NavigationStack
     {
         Parent root;
         Stage stage;
+        System.out.println(resource);
         try {
             root = FXMLLoader.load(getClass().getResource(resource));
             stage = new Stage();
-            stage.setTitle("Airline_System UE");
+            stage.setTitle("RealGM DB");
             stage.setScene(new Scene(root, WINDOW_WIDTH , WINDOW_HEIGHT));
 
             return stage;
