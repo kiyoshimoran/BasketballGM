@@ -19,8 +19,8 @@ import java.io.IOException;
 public class TeamViewController implements Initializable {
 
     @FXML AnchorPane roster_view;
-    @FXML TableView<roster_table> flight_table;
-    @FXML TableColumn<Roster, String> dest_column;
+    @FXML TableView<Player> roster_table;
+    @FXML TableColumn<Player, String> dest_column;
     @FXML TableColumn<Player, String> origin_column;
     @FXML TableColumn<Player, String> departure_column;
     @FXML TableColumn<Player, String> arrival_column;
