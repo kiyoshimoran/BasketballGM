@@ -17,12 +17,12 @@ public class UpdateDB {
         connection = createObj.getConnection();
     }
 
-    public boolean addSeason(File f)
+    /*public boolean addSeason(File f)
     {
         while(stuff in file)
         {
             String st = "UPDATE " + db +
         }
-    }
+    }*/
 
 }
