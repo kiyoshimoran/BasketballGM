@@ -1,9 +1,11 @@
 package DB;
 
-import java.sql.*;
 import java.io.FileReader;
+import java.io.File;
+import java.sql.*;
 
 public class UpdateDB {
+
     private CreateConnection createObj;
     private Connection connection;
     private Statement statement;
@@ -15,8 +17,17 @@ public class UpdateDB {
         connection = createObj.getConnection();
     }
 
+
     public void updateDB()
     {
 
+    }
+
+    public boolean addSeason(File f)
+    {
+        while(stuff in file)
+        {
+            String st = "UPDATE " + db +
+        }
     }
 }
