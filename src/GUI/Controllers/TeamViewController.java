@@ -13,6 +13,7 @@ import javafx.scene.*;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.*;
 
@@ -38,7 +39,26 @@ public class TeamViewController implements Initializable {
 
     @Override public void initialize(URL url, ResourceBundle rb)
     {
+        String myTeam = 'TOR';
         HashMap leagues = gm.getLeagues();
+        //Team team = gm.getTeam(myTeam);
+        ObservableList<Player> roster = gm.getRoster();
+        // TODO get games played from data
+        int gamesPlayed = 82;
+        //roster_table.setItems(gm.getRoster(myTeam));
+        for(Player in roster) {
+            player_col.setCellValueFactory(new PropertyValueFactory("_Name"));
+            pos_col.setCellValueFactory(new PropertyValueFactory("_Position"));
+            mpg_col.setCellValueFactory(new PropertyValueFactory("_mp"));
+            points_col.setCellValueFactory(new PropertyValueFactory("_points"));
+            assists_col.setCellValueFactory(new PropertyValueFactory("_assists"));
+            rebounds_col.setCellValueFactory(new PropertyValueFactory("_rebounds"));
+            steals_col.setCellValueFactory(new PropertyValueFactory("_steals"));
+            blocks_col.setCellValueFactory(new PropertyValueFactory("_blocks"));
+            tos_col.setCellValueFactory(new PropertyValueFactory("_tos"));
+            fouls_col.setCellValueFactory(new PropertyValueFactory("_fouls"));
+            roster_table.getColumns().setAll(player_col, pos_col, mpg_col, points_col, assists_col, rebounds_col, steals_col, blocks_col, tos_col, fouls_col);
+        }
         //Team Team = league.getTeams();
         //getRoster();
 

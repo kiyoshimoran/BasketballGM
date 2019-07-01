@@ -1,5 +1,7 @@
 package DB;
 
+import com.google.gson.Gson;
+
 import java.io.File;
 import java.sql.*;
 
@@ -17,12 +19,15 @@ public class UpdateDB {
         connection = createObj.getConnection();
     }
 
-    /*public boolean addSeason(File f)
+    public boolean addSeason()
     {
-        while(stuff in file)
+        Gson gson = new Gson();
+        String json_player = "{'firstname' : 'lastname' :"
+        /*while(stuff in file)
         {
             String st = "UPDATE " + db +
-        }
-    }*/
+        }*/
+        return true;
+    }
 
 }
