@@ -23,10 +23,10 @@ public class UpdateDB {
     {
         Gson gson = new Gson();
         String json_player = "{'firstname' : 'lastname' :"
-        /*while(stuff in file)
+        while(stuff in file)
         {
             String st = "UPDATE " + db +
-        }*/
+        }
         return true;
     }
 

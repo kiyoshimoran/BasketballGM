@@ -8,18 +8,20 @@
 
 <AnchorPane fx:id="roster_view" prefHeight="728.0" prefWidth="1115.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.TeamViewController">
    <children>
-      <TableView fx:id="roster_table" layoutX="164.0" layoutY="238.0" prefHeight="373.0" prefWidth="773.0">
+      <TableView fx:id="roster_table" layoutX="164.0" layoutY="238.0" prefHeight="374.0" prefWidth="904.0">
         <columns>
-          <TableColumn fx:id="player_col" prefWidth="75.0" text="Player" />
-          <TableColumn fx:id="pos_col" prefWidth="75.0" text="Pos" />
-            <TableColumn fx:id="mpg_col" prefWidth="75.0" text="MPG" />
-            <TableColumn fx:id="points_col" prefWidth="75.0" text="Points" />
-            <TableColumn fx:id="rebounds_col" prefWidth="75.0" text="Rebounds" />
-            <TableColumn fx:id="assists_col" prefWidth="75.0" text="Assists" />
-            <TableColumn fx:id="steals_col" prefWidth="75.0" text="Steals" />
-            <TableColumn fx:id="blocks_col" prefWidth="75.0" text="Blocks" />
-            <TableColumn fx:id="tos_col" prefWidth="75.0" text="TO's" />
-            <TableColumn fx:id="fouls_col" prefWidth="75.0" text="Fouls" />
+          <TableColumn fx:id="player_col" prefWidth="116.80000305175781" text="Player" />
+          <TableColumn fx:id="pos_col" prefWidth="33.60003662109375" text="Pos" />
+          <TableColumn fx:id="mpg_col" prefWidth="75.0" text="MPG" />
+          <TableColumn fx:id="points_col" prefWidth="75.0" text="Points" />
+          <TableColumn fx:id="fgp_col" prefWidth="75.0" text="FG%" />
+          <TableColumn fx:id="ftp_col" prefWidth="75.0" text="FT%" />
+          <TableColumn fx:id="tpp_col" prefWidth="75.0" text="3P%" />
+          <TableColumn fx:id="rebounds_col" prefWidth="75.0" text="Rebounds" />
+          <TableColumn fx:id="assists_col" prefWidth="75.0" text="Assists" />
+          <TableColumn fx:id="steals_col" prefWidth="75.0" text="Steals" />
+          <TableColumn fx:id="blocks_col" prefWidth="75.0" text="Blocks" />
+          <TableColumn fx:id="fouls_col" prefWidth="75.0" text="Fouls" />
         </columns>
       </TableView>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />

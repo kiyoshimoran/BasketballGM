@@ -2,7 +2,7 @@ package GUI.Controllers;
 
 import GM.League;
 import GM.Team;
-import GM.Player;
+import GM.GamePlayer;
 
 import static GUI.Main.gm;
 import static GUI.Main.navigation;
@@ -26,15 +26,15 @@ public class StandingsViewController implements Initializable {
     @FXML AnchorPane roster_view;
     @FXML TableView<Team> roster_table;
     @FXML TableColumn<Team, String> player_col;
-    @FXML TableColumn<Player, Double> pos_col;
-    @FXML TableColumn<Player, String> mpg_col;
-    @FXML TableColumn<Player, Double> points_col;
-    @FXML TableColumn<Player, Double> assists_col;
-    @FXML TableColumn<Player, Double> rebounds_col;
-    @FXML TableColumn<Player, Double> steals_col;
-    @FXML TableColumn<Player, Double> blocks_col;
-    @FXML TableColumn<Player, Double> tos_col;
-    @FXML TableColumn<Player, Double> fouls_col;
+    @FXML TableColumn<GamePlayer, String> pos_col;
+    @FXML TableColumn<GamePlayer, Double> mpg_col;
+    @FXML TableColumn<GamePlayer, Double> points_col;
+    @FXML TableColumn<GamePlayer, Double> assists_col;
+    @FXML TableColumn<GamePlayer, Double> rebounds_col;
+    @FXML TableColumn<GamePlayer, Double> steals_col;
+    @FXML TableColumn<GamePlayer, Double> blocks_col;
+    @FXML TableColumn<GamePlayer, Double> tos_col;
+    @FXML TableColumn<GamePlayer, Double> fouls_col;
 
     @Override public void initialize(URL url, ResourceBundle rb)
     {
