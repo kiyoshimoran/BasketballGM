@@ -1,10 +1,10 @@
 package GM;
 
 import java.util.HashMap;
-import GM.Player;
+import GM.*;
 
 public class Team {
-    public HashMap<String, Player> Roster;
+    public HashMap<String, RosterPlayer> Roster;
     public int wins, losses;
     public double salary_cap, payroll, lux_tax, profit, ticket, scouting, coaching, health, facilites;
 

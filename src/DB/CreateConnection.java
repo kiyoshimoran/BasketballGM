@@ -11,7 +11,7 @@ public class CreateConnection {
     private void connect()
     {
         try {
-            String url="jdbc:sqlite:RealGMDB.db";
+            String url="jdbc:sqlite:RealGMdb.db";
             connection = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite has been established.");
         }

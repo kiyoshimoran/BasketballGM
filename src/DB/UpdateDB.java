@@ -1,6 +1,7 @@
 package DB;
 
 import java.io.*;
+import com.google.gson.Gson;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -17,12 +18,16 @@ public class UpdateDB {
         connection = createObj.getConnection();
     }
 
-    public boolean addSeason(File f, String season)
+
+    public boolean addSeason()
     {
-        FileInputStream inputStream = new FileInputStream("Users\kiyos\Documents\My shit\BasketballGM\\2018_season_stats");
-        Scanner sc = new Scanner(inputStream, "UTF-8");
-        while(sc.hasNextLine()) {
-    }
+        Gson gson = new Gson();
+        String json_player = "{'firstname' : 'lastname' :"
+        while(stuff in file)
+        {
+            String st = "UPDATE " + db +
+        }
+        return true;
     }
 
 }
