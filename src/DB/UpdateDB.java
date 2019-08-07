@@ -1,8 +1,8 @@
 package DB;
 
-import java.io.FileReader;
-import java.io.File;
+import java.io.*;
 import java.sql.*;
+import java.util.Scanner;
 
 public class UpdateDB {
 
@@ -17,13 +17,12 @@ public class UpdateDB {
         connection = createObj.getConnection();
     }
 
-    /*public boolean addSeason(File f)
+    public boolean addSeason(File f, String season)
     {
-        while(stuff in file)
-        {
-            String st = "UPDATE " + db +
-        }
+        FileInputStream inputStream = new FileInputStream("Users\kiyos\Documents\My shit\BasketballGM\\2018_season_stats");
+        Scanner sc = new Scanner(inputStream, "UTF-8");
+        while(sc.hasNextLine()) {
     }
-    }*/
+    }
 
 }
