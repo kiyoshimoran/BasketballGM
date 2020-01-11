@@ -1,6 +1,7 @@
 package GM;
 
 public class RosterPlayer {
+    private String df = "%.5f";
     public int games;
     public double mp, pts, fgm, fga, fgp, tpm, tpa, tpp, ftm, fta, ftp, trb, orb, drb, ast, stl, blk, to, pf, plsmns;
     public String name, pos, opp, score, wl;
@@ -45,6 +46,8 @@ public class RosterPlayer {
 
     public double getMp() {return this.mp;}
 
+    public String getFMP() {return String.format("%.2f", this.mp);}
+
     public double getPts() {return  this.pts;}
 
     public double getTrb() {return this.trb;}
@@ -59,7 +62,13 @@ public class RosterPlayer {
 
     public double getFgp() {return this.fgp;}
 
+    public String getFFGP() {return String.format(df, this.fgp);}
+
     public double getFtp() {return this.ftp;}
 
+    public String getFFTP() {return String.format(df, this.ftp);}
+
     public double getTpp() {return this.tpp;}
+
+    public String getFTPP() {return String.format(df, this.tpp);}
 }
