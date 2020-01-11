@@ -1,8 +1,7 @@
 package GUI.Controllers;
 
-import GM.League;
-import GM.Team;
-import GM.GamePlayer;
+import GM.*;
+import DB.*;
 
 import static GUI.Main.gm;
 import static GUI.Main.navigation;
@@ -23,6 +22,7 @@ import java.util.ResourceBundle;
 
 public class StandingsViewController implements Initializable {
 
+    private UpdateDB udb;
     @FXML AnchorPane roster_view;
     @FXML TableView<Team> roster_table;
     @FXML TableColumn<Team, String> player_col;
@@ -38,9 +38,14 @@ public class StandingsViewController implements Initializable {
 
     @Override public void initialize(URL url, ResourceBundle rb)
     {
-        HashMap leagues = gm.getLeagues();
+        udb = new UpdateDB();
+        udb.addSeason();
+        /*HashMap leagues = gm.getLeagues();
+        HashMap<String, Team> team_hash;
+        League l = new League();
+        team_hash = l.getTeams();
         //Team Team = league.getTeams();
-        //getRoster();
+        //getRoster();*/
 
     }
 

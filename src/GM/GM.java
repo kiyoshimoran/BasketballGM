@@ -49,7 +49,6 @@ public class GM {
             gamesPlayed = games.getInt(1);
             preparedstatement = connection.prepareStatement(query);
             result = preparedstatement.executeQuery();
-            System.out.println("query executed");
 
             while(result.next())
             {

@@ -20,6 +20,7 @@ import javafx.stage.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 public class TeamViewController implements Initializable {
@@ -28,7 +29,7 @@ public class TeamViewController implements Initializable {
     @FXML TableView<RosterPlayer> roster_table;
     @FXML TableColumn<RosterPlayer, String> player_col;
     @FXML TableColumn<RosterPlayer, String> pos_col;
-    @FXML TableColumn<RosterPlayer, Double> mpg_col;
+    @FXML TableColumn<RosterPlayer, String> mpg_col;
     @FXML TableColumn<RosterPlayer, Double> points_col;
     @FXML TableColumn<RosterPlayer, Double> fgp_col;
     @FXML TableColumn<RosterPlayer, Double> ftp_col;
@@ -43,6 +44,7 @@ public class TeamViewController implements Initializable {
     @Override public void initialize(URL url, ResourceBundle rb)
     {
         String myTeam = "'TOR'";
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
         ObservableList<RosterPlayer> roster = gm.getRoster(myTeam);
         for(RosterPlayer player : roster)
         {
@@ -53,11 +55,11 @@ public class TeamViewController implements Initializable {
         roster_table.setItems(gm.getRoster(myTeam));
         player_col.setCellValueFactory(new PropertyValueFactory("name"));
         pos_col.setCellValueFactory(new PropertyValueFactory("pos"));
-        mpg_col.setCellValueFactory(new PropertyValueFactory("mp"));
+        mpg_col.setCellValueFactory(new PropertyValueFactory("FMP"));
         points_col.setCellValueFactory(new PropertyValueFactory("pts"));
-        fgp_col.setCellValueFactory(new PropertyValueFactory("fgp"));
-        ftp_col.setCellValueFactory(new PropertyValueFactory("ftp"));
-        tpp_col.setCellValueFactory(new PropertyValueFactory("tpp"));
+        fgp_col.setCellValueFactory(new PropertyValueFactory("FFGP"));
+        ftp_col.setCellValueFactory(new PropertyValueFactory("FFTP"));
+        tpp_col.setCellValueFactory(new PropertyValueFactory("FTPP"));
         assists_col.setCellValueFactory(new PropertyValueFactory("ast"));
         rebounds_col.setCellValueFactory(new PropertyValueFactory("trb"));
         steals_col.setCellValueFactory(new PropertyValueFactory("stl"));
@@ -65,6 +67,7 @@ public class TeamViewController implements Initializable {
         //tos_col.setCellValueFactory(new PropertyValueFactory("_tos"));
         fouls_col.setCellValueFactory(new PropertyValueFactory("pf"));
         roster_table.getColumns().setAll(player_col, pos_col, mpg_col, points_col, fgp_col, ftp_col, tpp_col, assists_col, rebounds_col, steals_col, blocks_col, fouls_col);
+
         /*for(RosterPlayer in roster) {
             player_col.setCellValueFactory(new PropertyValueFactory("_Name"));
             pos_col.setCellValueFactory(new PropertyValueFactory("_Position"));
