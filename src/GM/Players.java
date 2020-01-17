@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Players {
 
-    public String season;
+    //public String season;
     public List<JsonPG> everyone;
 
     public Players() {
@@ -44,7 +44,4 @@ public class Players {
         this.everyone = everyone;
     }
 
-    public String getSeason() {
-        return season;
-    }
 }

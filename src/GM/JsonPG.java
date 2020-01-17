@@ -50,6 +50,24 @@ public class JsonPG {
                 "}\n";
     }
 
+    public String toSQLStatement() {
+        return  " ('" + name + '\'' +
+                ", " + season +
+                ", " + pid +
+                ", " + tid +
+                ", " + gid +
+                /*", " + oppTid +
+                ", " + overtimes +
+                ", " + fid +
+                ", '" + name + '\'' +
+                ", '" + pos + '\'' +
+                ", '" + score + '\'' +
+                ", " + playoffs +
+                ", " + won +
+                ", " + stats +*/
+                ")";
+    }
+
     public void setPid(int pid) {
         this.pid = pid;
     }

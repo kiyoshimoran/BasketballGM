@@ -73,6 +73,37 @@ public class Stats {
                 '}';
     }
 
+    public String toSQLStatement() {
+        return  "" + gs +
+                ", " + fg +
+                ", " + fga +
+                ", " + fgAtRim +
+                ", " + fgaAtRim +
+                ", " + fgLowPost +
+                ", " + fgaLowPost +
+                ", fgMidRange=" + fgMidRange +
+                ", fgaMidRange=" + fgaMidRange +
+                ", tp=" + tp +
+                ", tpa=" + tpa +
+                ", ft=" + ft +
+                ", fta=" + fta +
+                ", pm=" + pm +
+                ", orb=" + orb +
+                ", drb=" + drb +
+                ", ast=" + ast +
+                ", tov=" + tov +
+                ", stl=" + stl +
+                ", blk=" + blk +
+                ", ba=" + ba +
+                ", pf=" + pf +
+                ", pts=" + pts +
+                ", min=" + min +
+                ", courtTime=" + courtTime +
+                ", benchTime=" + benchTime +
+                ", energy=" + energy +
+                '}';
+    }
+
     public int getGs() {
         return gs;
     }
