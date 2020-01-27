@@ -42,6 +42,39 @@ public class Stats {
 
     @Override
     public String toString() {
+        return "'" + gs +
+                "," + fg +
+                ", " + fga +
+                ", " + fgAtRim +
+                ", " + fgaAtRim +
+                ", " + fgLowPost +
+                ", " + fgaLowPost +
+                ", " + fgMidRange +
+                ", " + fgaMidRange +
+                ", " + tp +
+                ", " + tpa +
+                ", " + ft +
+                ", " + fta +
+                ", " + pm +
+                ", " + orb +
+                ", " + drb +
+                ", " + ast +
+                ", " + tov +
+                ", " + stl +
+                ", " + blk +
+                ", " + ba +
+                ", " + pf +
+                ", " + pts +
+                ", " + min +
+                ", " + courtTime +
+                ", " + benchTime +
+                ", " + energy +
+                "";
+    }
+
+    /*
+    @Override
+    public String toString() {
         return "Stats{" +
                 "gs=" + gs +
                 ", fg=" + fg +
@@ -71,7 +104,7 @@ public class Stats {
                 ", benchTime=" + benchTime +
                 ", energy=" + energy +
                 '}';
-    }
+    }*/
 
     public String toSQLStatement() {
         return  "" + gs +

@@ -1,21 +1,24 @@
 package GM;
 
 import GM.*;
+import com.google.gson.annotations.Expose;
+
+import java.util.List;
 
 public class Team {
 
     public String region, name, abbrev, imgURL, strategy;
     public int tid, cid, did;
     public Budget budget;
-    public Seasons seasons;
+    public List<Seasons> seasons;
 
-    private transient TeamStats stats;
-    private transient Colors colors;
+    private transient List<TeamStats> stats;
+    private transient List<String> colors;
 
     public Team() {}
 
     public Team(String region, String name, String abbrev, String imgURL, String strategy, int tid, int cid, int did,
-                Budget budget, Seasons seasons, TeamStats stats, Colors colors) {
+                Budget budget, List<Seasons> seasons, List<TeamStats> stats, List<String> colors) {
         this.region = region;
         this.name = name;
         this.abbrev = abbrev;
