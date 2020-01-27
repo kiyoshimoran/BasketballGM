@@ -34,8 +34,6 @@ public class UpdateDB {
     public void addSeason()
 
     {
-        Statement stmt;
-
         String table = "JPGBoxscores";
         String createTable = "CREATE TABLE " + table + " (name varchar(50), season int, pid int, tid int, gid int, PRIMARY KEY (pid, gid, season))";
 
@@ -45,14 +43,15 @@ public class UpdateDB {
         League league = new League();
         Players p = new Players();
         Seasons s;
+        RankedAttribute ra;
         Commissioner commish; // = new Commissioner(Teams, Players);
 
-        Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.STATIC).create();
+        Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.PRIVATE).create();
         String filepath = "C:\\Users\\kiyos\\Documents\\My shit\\BasketballGM\\BBGM_League_2_2019_re_sign_players.json";
-        String testfile = "C:\\Users\\kiyos\\Documents\\My shit\\BasketballGM\\bbgm_test.json";
+        String testfile = "C:\\Users\\kiyos\\Documents\\My shit\\BasketballGM\\transienttest.json";
         //String file = "BBGM_League_1_2043";
 
-        //start at line 154228 "Player feats"
+        //parse json
         try (Reader reader = new FileReader(filepath))
         {
             System.out.println("file reader craeted");
@@ -62,7 +61,7 @@ public class UpdateDB {
             System.out.println("parsed json");
             System.out.println(commish.toString());
 
-            /*try
+            try
             {
                 OpenConnection();
                 // check if table exists (by year) and create or skip depending
@@ -82,7 +81,7 @@ public class UpdateDB {
             {
                 System.out.print("UpdateDB: ");
                 System.out.println(e.getMessage());
-            }*/
+            }
         }
 
         catch (IOException e)

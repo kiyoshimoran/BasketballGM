@@ -10,7 +10,8 @@ public class Seasons {
     private transient Mood mood;
     private transient Colors colors;
     public int tid, season, gp, goHome, att, won, lost, tied, wonHome, lostHome, wonAway, lostAway, tiedAway, wonDiv,
-            lostDiv, tiedDiv, wonConf, lostConf, tiedConf, streak, playoffRoundsWon, hype, stadiumCapacity;
+            lostDiv, tiedDiv, wonConf, lostConf, tiedConf, streak, playoffRoundsWon, stadiumCapacity;
+    private transient double hype;
     public Double cash, pop;
     public List<Integer> lastTen;
     public transient Revenues revenues;

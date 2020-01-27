@@ -6,11 +6,11 @@ public class JsonPG {
     public int pid, season, tid, oppTid, gid, overtimes, fid;
     public String name, pos, score;
     public boolean playoffs, won;
-    public Stats stats;
+    public List<SeasonStats> stats;
 
     public JsonPG()  {};
 
-    public JsonPG(int pid, int season, int tid, int oppTid, int gid, int overtimes, int fid, String name, String pos, String score, boolean playoffs, boolean won, Stats stats) {
+    public JsonPG(int pid, int season, int tid, int oppTid, int gid, int overtimes, int fid, String name, String pos, String score, boolean playoffs, boolean won, List<SeasonStats> stats) {
         this.pid = pid;
         this.season = season;
         this.tid = tid;
@@ -49,6 +49,26 @@ public class JsonPG {
                 ", stats=" + stats +
                 "}\n";
     }
+
+    /*
+    @Override
+    public String toString() {
+        return "JsonPG{" +
+                "pid=" + pid +
+                ", season=" + season +
+                ", tid=" + tid +
+                ", oppTid=" + oppTid +
+                ", gid=" + gid +
+                ", overtimes=" + overtimes +
+                ", fid=" + fid +
+                ", name='" + name + '\'' +
+                ", pos='" + pos + '\'' +
+                ", score='" + score + '\'' +
+                ", playoffs=" + playoffs +
+                ", won=" + won +
+                ", stats=" + stats +
+                "}\n";
+    }*/
 
     public String toSQLStatement() {
         return  " ('" + name + '\'' +
@@ -160,11 +180,11 @@ public class JsonPG {
         this.won = won;
     }
 
-    public Stats getStats() {
+    public List<SeasonStats> getStats() {
         return stats;
     }
 
-    public void setStats(Stats stats) {
+    public void setStats(List<SeasonStats> stats) {
         this.stats = stats;
     }
 }

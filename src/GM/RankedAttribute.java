@@ -12,6 +12,14 @@ public class RankedAttribute {
         this.rank = rank;
     }
 
+    @Override
+    public String toString() {
+        return "RankedAttribute{" +
+                "amount=" + amount +
+                ", rank=" + rank +
+                '}';
+    }
+
     public double getAmount() {
         return amount;
     }
