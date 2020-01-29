@@ -22,7 +22,10 @@ public class UpdateDB {
     private PreparedStatement preparedstatement;
     private ResultSet result;
 
-    public UpdateDB() {};
+    public UpdateDB() {
+    }
+
+    ;
 
     //Gets a connection to the DB
     private void OpenConnection() {
@@ -48,22 +51,25 @@ public class UpdateDB {
 
         Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.PRIVATE).create();
         String filepath = "C:\\Users\\kiyos\\Documents\\My shit\\BasketballGM\\BBGM_League_2_2019_re_sign_players.json";
-        String testfile = "C:\\Users\\kiyos\\Documents\\My shit\\BasketballGM\\transienttest.json";
         //String file = "BBGM_League_1_2043";
 
         //parse json
-        try (Reader reader = new FileReader(filepath))
-        {
+        try (Reader reader = new FileReader(filepath)) {
             System.out.println("file reader craeted");
             //jpg = gson.fromJson(reader, JsonPG.class);
             commish = gson.fromJson(reader, Commissioner.class);
             //List<JsonPG> otherlist = gson.fromJson(reader, listType);
             System.out.println("parsed json");
-            System.out.println(commish.toString());
+            //System.out.println(commish.toString());
 
+            addTeams(commish, "Teams");
+
+            /*
             try
             {
                 OpenConnection();
+
+                //Creating and filling boxscore table
                 // check if table exists (by year) and create or skip depending
                 System.out.println(createTable);
                 Statement stmt = connection.createStatement();
@@ -81,17 +87,35 @@ public class UpdateDB {
             {
                 System.out.print("UpdateDB: ");
                 System.out.println(e.getMessage());
-            }
-        }
-
-        catch (IOException e)
-        {
+            }*/
+        } catch (IOException e) {
             System.out.println("no filepath");
             e.printStackTrace();
         }
-
-
-
     }
 
+    public void addTeams(Commissioner c, String table) {
+        Statement stmt;
+        String add;
+        String createTable = "CREATE TABLE " + table + " (tid int, cid int, did int, region varchar(20), name varchar(20)," +
+                "abbrev char(3), season int, won int, lost int, PRIMARY KEY (tid, season))";
+        System.out.println(createTable);
+        try {
+            OpenConnection();
+            stmt = connection.createStatement();
+            stmt.executeUpdate(createTable);
+            for (Team t : c.teams) {
+                //System.out.println("salary: " + t.getSeasons().get(0).getExpenses().getSalary().getAmount());
+                add = "INSERT INTO " + table + " VALUES" + t.toSQL();
+                System.out.println(add);
+                stmt = connection.createStatement();
+                stmt.executeUpdate(add);
+            }
+
+        } catch (SQLException e) {
+            System.out.print("addTeams: ");
+            System.out.println(e.getMessage());
+        }
+
+    }
 }

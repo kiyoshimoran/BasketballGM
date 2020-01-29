@@ -4,48 +4,29 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="655.0" prefWidth="999.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.StandingsViewController">
    <children>
-      <TableView fx:id="Pacific" layoutX="75.0" layoutY="104.0" prefHeight="200.0" prefWidth="152.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Team" />
-          <TableColumn prefWidth="75.0" text="Record" />
-        </columns>
-      </TableView>
-      <TableView fx:id="Central" layoutX="391.0" layoutY="417.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="East" layoutX="610.0" layoutY="199.0" onMouseClicked="#clickEast" prefHeight="386.0" prefWidth="280.01">
          <columns>
-            <TableColumn prefWidth="75.0" text="Team" />
-            <TableColumn prefWidth="75.0" text="Record" />
+            <TableColumn fx:id="east_teams" prefWidth="177.0" text="Team" />
+            <TableColumn fx:id="east_records" prefWidth="102.0" text="Record" />
          </columns>
       </TableView>
-      <TableView fx:id="Northwest" layoutX="390.0" layoutY="104.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="West" layoutX="112.0" layoutY="199.0" onMouseClicked="#clickWest" prefHeight="386.0" prefWidth="280.01">
          <columns>
-            <TableColumn prefWidth="75.0" text="Team" />
-            <TableColumn prefWidth="75.0" text="Record" />
-         </columns>
-      </TableView>
-      <TableView fx:id="Southwest" layoutX="708.0" layoutY="104.0" prefHeight="200.0" prefWidth="200.0">
-         <columns>
-            <TableColumn prefWidth="75.0" text="Team" />
-            <TableColumn prefWidth="75.0" text="Record" />
-         </columns>
-      </TableView>
-      <TableView fx:id="Atlantic" layoutX="75.0" layoutY="417.0" prefHeight="200.0" prefWidth="200.0">
-         <columns>
-            <TableColumn prefWidth="75.0" text="Team" />
-            <TableColumn prefWidth="75.0" text="Record" />
-         </columns>
-      </TableView>
-      <TableView fx:id="Southeast" layoutX="709.0" layoutY="417.0" prefHeight="200.0" prefWidth="200.0">
-         <columns>
-            <TableColumn prefWidth="75.0" text="Team" />
-            <TableColumn prefWidth="75.0" text="Record" />
+            <TableColumn fx:id="west_teams" prefWidth="177.0" text="Team" />
+            <TableColumn fx:id="west_records" prefWidth="102.0" text="Record" />
          </columns>
       </TableView>
       <Button fx:id="back_button" layoutX="27.0" layoutY="662.0" mnemonicParsing="false" onAction="#GoBack" text="Back" />
-      <Text layoutX="429.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Western Conference" wrappingWidth="140.5367150902748" />
-      <Text layoutX="429.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eastern Conference" wrappingWidth="140.5367088317871" />
+      <Text layoutX="182.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Western Conference" wrappingWidth="140.5367150902748" />
+      <Text layoutX="680.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eastern Conference" wrappingWidth="140.5367088317871">
+         <font>
+            <Font name="Baskerville Old Face" size="12.0" />
+         </font></Text>
+      <Button layoutX="437.0" layoutY="617.0" mnemonicParsing="false" onAction="#SearchAction" text="Player Search" />
    </children>
 </AnchorPane>

@@ -19,40 +19,182 @@ public class Seasons {
 
     public Seasons() {}
 
+    public Seasons(int season, int won, int lost)
+    {
+        this.season = season;
+        this.won = won;
+        this.lost = lost;
+    }
+
     @Override
     public String toString() {
-        return "Seasons{" +
-                "ts=" + ts +
-                ", mood=" + mood +
-                ", colors=" + colors +
-                ", tid=" + tid +
-                ", season=" + season +
-                ", gp=" + gp +
-                ", goHome=" + goHome +
-                ", att=" + att +
-                ", won=" + won +
-                ", lost=" + lost +
-                ", tied=" + tied +
-                ", wonHome=" + wonHome +
-                ", lostHome=" + lostHome +
-                ", wonAway=" + wonAway +
-                ", lostAway=" + lostAway +
-                ", tiedAway=" + tiedAway +
-                ", wonDiv=" + wonDiv +
-                ", lostDiv=" + lostDiv +
-                ", tiedDiv=" + tiedDiv +
-                ", wonConf=" + wonConf +
-                ", lostConf=" + lostConf +
-                ", tiedConf=" + tiedConf +
-                ", streak=" + streak +
-                ", playoffRoundsWon=" + playoffRoundsWon +
-                ", hype=" + hype +
-                ", stadiumCapacity=" + stadiumCapacity +
-                ", cash=" + cash +
-                ", pop=" + pop +
-                ", lastTen=" + lastTen +
-                ", revenues=" + revenues +
-                ", expenses=" + expenses +
-                "}\n";
+        return "" + ts +
+                ", " + mood +
+                ", " + colors +
+                ", " + tid +
+                ", " + season +
+                ", " + gp +
+                ", " + goHome +
+                ", " + att +
+                ", " + won +
+                ", " + lost +
+                ", " + tied +
+                ", " + wonHome +
+                ", " + lostHome +
+                ", " + wonAway +
+                ", " + lostAway +
+                ", " + tiedAway +
+                ", " + wonDiv +
+                ", " + lostDiv +
+                ", " + tiedDiv +
+                ", " + wonConf +
+                ", " + lostConf +
+                ", " + tiedConf +
+                ", " + streak +
+                ", " + playoffRoundsWon +
+                ", " + hype +
+                ", " + stadiumCapacity +
+                ", " + cash +
+                ", " + pop +
+                //", " + lastTen +
+                //", " + revenues +
+                ", " + expenses +
+                ")";
+    }
+
+    public Stats getTs() {
+        return ts;
+    }
+
+    public Mood getMood() {
+        return mood;
+    }
+
+    public Colors getColors() {
+        return colors;
+    }
+
+    public int getTid() {
+        return tid;
+    }
+
+    public int getSeason() {
+        return season;
+    }
+
+    public int getGp() {
+        return gp;
+    }
+
+    public int getGoHome() {
+        return goHome;
+    }
+
+    public int getAtt() {
+        return att;
+    }
+
+    public int getWon() {
+        return won;
+    }
+
+    public int getLost() {
+        return lost;
+    }
+
+    public int getTied() {
+        return tied;
+    }
+
+    public int getWonHome() {
+        return wonHome;
+    }
+
+    public int getLostHome() {
+        return lostHome;
+    }
+
+    public int getWonAway() {
+        return wonAway;
+    }
+
+    public int getLostAway() {
+        return lostAway;
+    }
+
+    public int getTiedAway() {
+        return tiedAway;
+    }
+
+    public int getWonDiv() {
+        return wonDiv;
+    }
+
+    public int getLostDiv() {
+        return lostDiv;
+    }
+
+    public int getTiedDiv() {
+        return tiedDiv;
+    }
+
+    public int getWonConf() {
+        return wonConf;
+    }
+
+    public int getLostConf() {
+        return lostConf;
+    }
+
+    public int getTiedConf() {
+        return tiedConf;
+    }
+
+    public int getStreak() {
+        return streak;
+    }
+
+    public int getPlayoffRoundsWon() {
+        return playoffRoundsWon;
+    }
+
+    public int getStadiumCapacity() {
+        return stadiumCapacity;
+    }
+
+    public double getHype() {
+        return hype;
+    }
+
+    public Double getCash() {
+        return cash;
+    }
+
+    public Double getPop() {
+        return pop;
+    }
+
+    public List<Integer> getLastTen() {
+        return lastTen;
+    }
+
+    public Revenues getRevenues() {
+        return revenues;
+    }
+
+    public Expenses getExpenses() {
+        return expenses;
+    }
+
+    public void setSeason(int season) {
+        this.season = season;
+    }
+
+    public void setWon(int won) {
+        this.won = won;
+    }
+
+    public void setLost(int lost) {
+        this.lost = lost;
     }
 }
