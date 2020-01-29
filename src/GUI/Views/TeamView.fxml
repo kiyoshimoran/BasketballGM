@@ -5,10 +5,11 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane fx:id="roster_view" prefHeight="728.0" prefWidth="1115.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.TeamViewController">
    <children>
-      <TableView fx:id="roster_table" layoutX="164.0" layoutY="238.0" prefHeight="374.0" prefWidth="904.0">
+      <TableView fx:id="roster_table" layoutX="164.0" layoutY="238.0" prefHeight="390.0" prefWidth="905.0">
         <columns>
           <TableColumn fx:id="player_col" prefWidth="116.80000305175781" text="Player" />
           <TableColumn fx:id="pos_col" prefWidth="33.60003662109375" text="Pos" />
@@ -25,7 +26,11 @@
         </columns>
       </TableView>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Text layoutX="271.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Name" wrappingWidth="413.13671875" />
       <Button fx:id="back_button" layoutX="52.0" layoutY="666.0" mnemonicParsing="false" onAction="#GoBack" text="Back" />
+      <TextFlow layoutX="283.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="record_text" layoutX="164.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="team_name" layoutX="164.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
    </children>
 </AnchorPane>

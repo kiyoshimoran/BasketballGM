@@ -6,11 +6,11 @@ public class JsonPG {
     public int pid, season, tid, oppTid, gid, overtimes, fid;
     public String name, pos, score;
     public boolean playoffs, won;
-    public List<SeasonStats> stats;
+    public List<Stats> stats;
 
     public JsonPG()  {};
 
-    public JsonPG(int pid, int season, int tid, int oppTid, int gid, int overtimes, int fid, String name, String pos, String score, boolean playoffs, boolean won, List<SeasonStats> stats) {
+    public JsonPG(int pid, int season, int tid, int oppTid, int gid, int overtimes, int fid, String name, String pos, String score, boolean playoffs, boolean won, List<Stats> stats) {
         this.pid = pid;
         this.season = season;
         this.tid = tid;
@@ -33,21 +33,20 @@ public class JsonPG {
 
     @Override
     public String toString() {
-        return "JsonPG{" +
-                "pid=" + pid +
-                ", season=" + season +
-                ", tid=" + tid +
-                ", oppTid=" + oppTid +
-                ", gid=" + gid +
-                ", overtimes=" + overtimes +
-                ", fid=" + fid +
-                ", name='" + name + '\'' +
-                ", pos='" + pos + '\'' +
-                ", score='" + score + '\'' +
-                ", playoffs=" + playoffs +
-                ", won=" + won +
-                ", stats=" + stats +
-                "}\n";
+        return "(" + pid +
+                ", " + season +
+                ", " + tid +
+                ", " + oppTid +
+                ", " + gid +
+                ", " + overtimes +
+                ", " + fid +
+                ", '" + name + '\'' +
+                ", '" + pos + '\'' +
+                ", '" + score + '\'' +
+                ", " + playoffs +
+                ", " + won +
+                ", " + stats +
+                ")";
     }
 
     /*
@@ -180,11 +179,11 @@ public class JsonPG {
         this.won = won;
     }
 
-    public List<SeasonStats> getStats() {
+    public List<Stats> getStats() {
         return stats;
     }
 
-    public void setStats(List<SeasonStats> stats) {
+    public void setStats(List<Stats> stats) {
         this.stats = stats;
     }
 }

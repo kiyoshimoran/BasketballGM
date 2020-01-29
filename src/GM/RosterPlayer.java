@@ -19,13 +19,13 @@ public class RosterPlayer {
         this.pts = pts;
         this.fgm = fgm;
         this.fga = fga;
-        this.fgp = fgm / fga;
+        this.fgp = checkPercent(fgm, fga);
         this.tpm = tpm;
         this.tpa = tpa;
-        this.tpp = tpm / tpa;
+        this.tpp = checkPercent(tpm, tpa);
         this.ftm = ftm;
         this.fta = fta;
-        this.ftp = ftm / fta;
+        this.ftp = checkPercent(ftm, fta);
         this.trb = orb + drb;
         this.orb = orb;
         this.drb = drb;
@@ -40,6 +40,11 @@ public class RosterPlayer {
         this.mp = mp;
     }
 
+    public double checkPercent(double x, double y)
+    {
+        if(y == 0) {return 0;}
+        else {return x / y;}
+    }
     public String getName() {return this.name;}
 
     public String getPos() {return this.pos;}
@@ -61,6 +66,10 @@ public class RosterPlayer {
     public double getPf() {return this.pf;}
 
     public double getFgp() {return this.fgp;}
+
+    public double getTo() {
+        return to;
+    }
 
     public String getFFGP() {return String.format(df, this.fgp);}
 

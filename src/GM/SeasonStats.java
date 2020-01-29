@@ -10,4 +10,11 @@ public class SeasonStats {
 
     public SeasonStats() {
     }
+
+    @Override
+    public String toString() {
+        return "" +
+                "stat=" + stat +
+                "";
+    }
 }

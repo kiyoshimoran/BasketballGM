@@ -42,7 +42,7 @@ public class Stats {
 
     @Override
     public String toString() {
-        return "'" + gs +
+        return "" + gs +
                 "," + fg +
                 ", " + fga +
                 ", " + fgAtRim +

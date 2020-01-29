@@ -18,6 +18,7 @@ public class GM {
     private PreparedStatement preparedstatement;
     private ResultSet result;
     private ResultSet games;
+    public String currentTeam;
     public GM() {}
 
     public GM(HashMap l)
@@ -31,18 +32,63 @@ public class GM {
         connection = createObj.getConnection();
     }
 
-    public ObservableList<RosterPlayer> getRoster(String myTeam)
+    public ObservableList<Team> getTeams()
+    {
+        ObservableList<Team> Teams = FXCollections.observableArrayList();
+        String table = "Teams";
+        String query = "SELECT * from " + table;
+        try
+        {
+            OpenConnection();
+            statement = connection.createStatement();
+            result = statement.executeQuery(query);
+            /*ResultSetMetaData rsmd = result.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            while (result.next()) {
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) System.out.print(",  ");
+                    String columnValue = result.getString(i);
+                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
+                }
+                System.out.println("");
+            }*/
+            while(result.next())
+            {
+                Team t = new Team(
+                        result.getInt("tid"),
+                        result.getInt("cid"),
+                        result.getInt("did"),
+                        result.getString("region"),
+                        result.getString("name"),
+                        result.getString("abbrev"),
+                        result.getInt("won"),
+                        result.getInt("lost"));
+                Teams.add(t);
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+
+        }
+        return Teams;
+    }
+
+    public ObservableList<RosterPlayer> getRoster()
     {
         double gamesPlayed;
+        String table = "GamePlayer";
         RosterPlayer rp;
         ObservableList<RosterPlayer> Roster = FXCollections.observableArrayList();
         String stats[] = {"mp", "fgm", "fga", "ftm", "fta", "pts", "trb", "ast", "blk", "stl", "pf"};
-        String gamesQuery = "SELECT count(pid) from GamePlayer WHERE team = " + myTeam + " GROUP BY pid;";
+        String gamesQuery = "SELECT count(pid) from " + table + " WHERE Team = " + currentTeam + " GROUP BY pid;";
         String query = "SELECT name, pos, sum(mp), sum(pts), sum(fgm), sum(fga), sum(tpm), sum(tpa), sum(ftm), sum(fta)," +
-                " sum(pts), sum(orb), sum(drb), sum(ast), sum(blk), sum(stl), sum(pf), sum(pm) FROM GamePlayer " +
-                "WHERE Team = " + myTeam + " Group by name;";
-        //System.out.println(query);
-        try {
+                " sum(pts), sum(orb), sum(drb), sum(ast), sum(blk), sum(stl), sum(pf), sum(pm) FROM " + table +
+                " WHERE Team = " + currentTeam + " Group by name;";
+        System.out.println(gamesQuery);
+        System.out.println(query);
+        try
+        {
             OpenConnection();
             statement = connection.createStatement();
             games = statement.executeQuery(gamesQuery);
@@ -88,10 +134,19 @@ public class GM {
         }
         catch(SQLException e)
         {
+            System.out.print("getRoster: ");
             System.out.println(e.getMessage());
 
         }
         return Roster;
+    }
+
+    public String getCurrentTeam() {
+        return currentTeam;
+    }
+
+    public void setCurrentTeam(String currentTeam) {
+        this.currentTeam = '"' + currentTeam + '"';
     }
 
     public HashMap getLeagues()

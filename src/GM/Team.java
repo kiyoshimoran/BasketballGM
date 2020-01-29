@@ -7,7 +7,8 @@ import java.util.List;
 
 public class Team {
 
-    public String region, name, abbrev, imgURL, strategy;
+    public String region, name, abbrev, strategy, record;
+    private transient String imgURL;
     public int tid, cid, did;
     public Budget budget;
     public List<Seasons> seasons;
@@ -33,21 +34,90 @@ public class Team {
         this.colors = colors;
     }
 
+    public Team(int tid, int cid, int did, String region, String name, String abbrev, int won, int lost)
+    {
+        this.tid = tid;
+        this.cid = cid;
+        this.did = did;
+        this.region = region;
+        this.name = name;
+        this.abbrev = abbrev;
+        this.record = Integer.toString(won) + "-" + Integer.toString(lost);
+    }
+
+    public String toSQL() {
+        return "(" + tid +
+                ", " + cid +
+                ", " + did +
+                ", '" + region + '\'' +
+                ", '" + name + '\'' +
+                ", '" + abbrev + '\'' +
+                ", " + seasons.get(0).getSeason() +
+                ", " + seasons.get(0).getWon() +
+                ", " + seasons.get(0).getLost() +
+                //", " + seasons.get(0).getExpenses().getSalary().getAmount() +
+                ')';
+    }
+
     @Override
     public String toString() {
-        return "Team{" +
-                "region='" + region + '\'' +
-                ", name='" + name + '\'' +
-                ", abbrev='" + abbrev + '\'' +
-                ", imgURL='" + imgURL + '\'' +
-                ", strategy='" + strategy + '\'' +
-                ", tid=" + tid +
-                ", cid=" + cid +
-                ", did=" + did +
-                ", budget=" + budget +
-                ", seasons=" + seasons +
-                ", stats=" + stats +
-                ", colors=" + colors +
-                '}';
+        return "(" +
+                "'" + region + '\'' +
+                ", '" + name + '\'' +
+                ", '" + abbrev + '\'' +
+                ", '" + imgURL + '\'' +
+                ", '" + strategy + '\'' +
+                ", " + tid +
+                ", " + cid +
+                ", " + did +
+                ", " + budget +
+                ", " + seasons +
+                ", " + stats +
+                ", " + colors +
+                ')';
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAbbrev() {
+        return abbrev;
+    }
+
+    public String getStrategy() {
+        return strategy;
+    }
+
+    public String getImgURL() {
+        return imgURL;
+    }
+
+    public int getTid() {
+        return tid;
+    }
+
+    public int getCid() {
+        return cid;
+    }
+
+    public int getDid() {
+        return did;
+    }
+
+    public Budget getBudget() {
+        return budget;
+    }
+
+    public List<Seasons> getSeasons() {
+        return seasons;
+    }
+
+    public String getRecord() {
+        return record;
     }
 }
