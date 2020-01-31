@@ -8,6 +8,8 @@ import java.lang.reflect.Type;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import javafx.scene.control.ComboBox;
+
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,10 +24,7 @@ public class UpdateDB {
     private PreparedStatement preparedstatement;
     private ResultSet result;
 
-    public UpdateDB() {
-    }
-
-    ;
+    public UpdateDB() {}
 
     //Gets a connection to the DB
     private void OpenConnection() {
@@ -38,11 +37,10 @@ public class UpdateDB {
 
     {
         String table = "JPGBoxscores";
-        String createTable = "CREATE TABLE " + table + " (name varchar(50), season int, pid int, tid int, gid int, PRIMARY KEY (pid, gid, season))";
+        String createTable = "CREATE TABLE IF NOT EXISTS " + table + " (name varchar(50), season int, pid int, tid int, gid int, PRIMARY KEY (pid, gid, season))";
 
-        List<JsonPG> Players = new ArrayList<JsonPG>();
+        List<Player> Players = new ArrayList<Player>();
         List<Team> Teams = new ArrayList<Team>();
-        JsonPG jpg = new JsonPG();
         League league = new League();
         Players p = new Players();
         Seasons s;
@@ -56,14 +54,11 @@ public class UpdateDB {
         //parse json
         try (Reader reader = new FileReader(filepath)) {
             System.out.println("file reader craeted");
-            //jpg = gson.fromJson(reader, JsonPG.class);
             commish = gson.fromJson(reader, Commissioner.class);
-            //List<JsonPG> otherlist = gson.fromJson(reader, listType);
             System.out.println("parsed json");
-            //System.out.println(commish.toString());
 
             addTeams(commish, "Teams");
-
+            addPlayers(commish, "Players");
             /*
             try
             {
@@ -94,11 +89,20 @@ public class UpdateDB {
         }
     }
 
+    public void addPlayers(Commissioner c, String table)
+    {
+        Statement stmt;
+        String add;
+        String createTable = "CREATE TABLE IF NOT EXISTS " + table + " (pid int, vatchar(20) firstName, varchar(20) lastName, " +
+                "gamesUntilTradable int, hgt int, ptModifier int, rosterOrder int, tid int, weight int, yearsFreeAgent int, " +
+                "int salary, hof boolean, watch boolean,  "
+    }
+
     public void addTeams(Commissioner c, String table) {
         Statement stmt;
         String add;
-        String createTable = "CREATE TABLE " + table + " (tid int, cid int, did int, region varchar(20), name varchar(20)," +
-                "abbrev char(3), season int, won int, lost int, PRIMARY KEY (tid, season))";
+        String createTable = "CREATE TABLE IF NOT EXISTS " + table + " (tid int, cid int, did int, region varchar(20), " +
+                "name varchar(20), abbrev char(3), season int, won int, lost int, PRIMARY KEY (tid, season))";
         System.out.println(createTable);
         try {
             OpenConnection();

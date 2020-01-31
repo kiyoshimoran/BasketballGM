@@ -30,7 +30,7 @@ public class PlayerSearchController implements Initializable {
     private CreateConnection createObj;
     private Connection connection;
 
-    public static String table = "GamePlayer";
+    public static String table = "Teams";
     String query = "SELECT name, pos, sum(mp), sum(pts), sum(fgm), sum(fga), sum(tpm), sum(tpa), sum(ftm), sum(fta)," +
             " sum(pts), sum(orb), sum(drb), sum(ast), sum(blk), sum(stl), sum(pf), sum(pm) FROM " + table +
             " WHERE ";
@@ -90,6 +90,7 @@ public class PlayerSearchController implements Initializable {
             OpenConnection();
             Statement stmt = connection.createStatement();
             ResultSet games = stmt.executeQuery(gamesQuery);
+            System.out.println("qeury executed");
             double gamesPlayed = games.getInt(1);
             query = query + "(sum(" + field + ") / " + gamesPlayed + ") " +comp + " " + val;
             System.out.println(query);

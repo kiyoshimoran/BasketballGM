@@ -36,6 +36,7 @@ public class GM {
     {
         ObservableList<Team> Teams = FXCollections.observableArrayList();
         String table = "Teams";
+        tryMakeTable(table);
         String query = "SELECT * from " + table;
         try
         {
@@ -71,6 +72,7 @@ public class GM {
             System.out.println(e.getMessage());
 
         }
+        System.out.println(Teams);
         return Teams;
     }
 
@@ -136,9 +138,24 @@ public class GM {
         {
             System.out.print("getRoster: ");
             System.out.println(e.getMessage());
-
         }
         return Roster;
+    }
+
+    public void tryMakeTable(String table)
+    {
+        try {
+            OpenConnection();
+            statement = connection.createStatement();
+            String create = "CREATE TABLE IF NOT EXISTS " + table + " (tid int, cid int, did int, region varchar(20), " +
+                    "name varchar(20), abbrev varchar(3), season int, won int, lost int, PRIMARY KEY (tid, season));";
+            statement.executeUpdate(create);
+        }
+        catch(SQLException e)
+        {
+            System.out.print("tryMakeTable: ");
+            System.out.println(e.getMessage());
+        }
     }
 
     public String getCurrentTeam() {
