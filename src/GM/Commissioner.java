@@ -9,7 +9,7 @@ public class Commissioner {
     public String version, startingSeason;
     public Meta meta;
     public List<Team> teams;
-    public List<JsonPG> players;
+    public List<Player> players;
 
     private transient List<Award> awards;
     private transient List<ReleasedPlayer> ReleasedPlayers;
@@ -17,7 +17,7 @@ public class Commissioner {
 
     public Commissioner() {}
 
-    public Commissioner(String version, String startingSeason, Meta meta, List<Team> teams, List<JsonPG> players, List<Award> awards, List<ReleasedPlayer> releasedPlayers, List<Game> games) {
+    public Commissioner(String version, String startingSeason, Meta meta, List<Team> teams, List<Player> players, List<Award> awards, List<ReleasedPlayer> releasedPlayers, List<Game> games) {
         this.version = version;
         this.startingSeason = startingSeason;
         this.meta = meta;
@@ -29,7 +29,7 @@ public class Commissioner {
     }
 
     //useful one for updatedb?
-    public Commissioner( List<Team> teams, List<JsonPG> players)
+    public Commissioner( List<Team> teams, List<Player> players)
     {
         this.teams = teams;
         this.players = players;
@@ -73,7 +73,7 @@ public class Commissioner {
         return ReleasedPlayers;
     }
 
-    public List<JsonPG> getPlayers() {
+    public List<Player> getPlayers() {
         return players;
     }
 

@@ -17,10 +17,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception
     {
         //navigation.performSegue("Views/TeamView.fxml", false);
-        navigation.performSegue("Views/PlayerSearch.fxml", true);
+        navigation.performSegue("Views/StandingsView.fxml", true);
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 }
+

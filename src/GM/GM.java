@@ -36,22 +36,17 @@ public class GM {
     {
         ObservableList<Team> Teams = FXCollections.observableArrayList();
         String table = "Teams";
+        tryMakeTable(table);
         String query = "SELECT * from " + table;
+        UpdateDB udb = new UpdateDB();
+        Commissioner c = new Commissioner();
+        udb.addSeason();
         try
         {
             OpenConnection();
             statement = connection.createStatement();
             result = statement.executeQuery(query);
-            /*ResultSetMetaData rsmd = result.getMetaData();
-            int columnsNumber = rsmd.getColumnCount();
-            while (result.next()) {
-                for (int i = 1; i <= columnsNumber; i++) {
-                    if (i > 1) System.out.print(",  ");
-                    String columnValue = result.getString(i);
-                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
-                }
-                System.out.println("");
-            }*/
+            //viewResults(result);
             while(result.next())
             {
                 Team t = new Team(
@@ -76,50 +71,90 @@ public class GM {
 
     public ObservableList<RosterPlayer> getRoster()
     {
-        double gamesPlayed;
-        String table = "GamePlayer";
+        String table = "Players";
         RosterPlayer rp;
         ObservableList<RosterPlayer> Roster = FXCollections.observableArrayList();
         String stats[] = {"mp", "fgm", "fga", "ftm", "fta", "pts", "trb", "ast", "blk", "stl", "pf"};
-        String gamesQuery = "SELECT count(pid) from " + table + " WHERE Team = " + currentTeam + " GROUP BY pid;";
-        String query = "SELECT name, pos, sum(mp), sum(pts), sum(fgm), sum(fga), sum(tpm), sum(tpa), sum(ftm), sum(fta)," +
-                " sum(pts), sum(orb), sum(drb), sum(ast), sum(blk), sum(stl), sum(pf), sum(pm) FROM " + table +
-                " WHERE Team = " + currentTeam + " Group by name;";
-        System.out.println(gamesQuery);
-        System.out.println(query);
+        String query = "SELECT firstName, lastName, pos, min / gp, pts / gp, fg / gp, fga / gp, tp / gp, tpa / gp, ft / gp, fta / gp,  " +
+                    "orb / gp, drb / gp, ast / gp, stl / gp, blk / gp, pf / gp, pm / gp, t.abbrev FROM Players p join Teams t on p.tid = t.tid;";
+        //String query = "SELECT firstName, lastName, pos, min / gp, pts / gp, fg / gp, fga / gp, tp / gp, tpa / gp, ft / gp, fta / gp,  " +
+        //    "orb / gp, drb / gp, ast / gp, stl / gp, blk / gp, pf / gp, pm / gp FROM Players;";
+        //System.out.println(query);
         try
         {
             OpenConnection();
             statement = connection.createStatement();
-            games = statement.executeQuery(gamesQuery);
-            gamesPlayed = games.getInt(1);
             preparedstatement = connection.prepareStatement(query);
             result = preparedstatement.executeQuery();
+            Roster = buildRoster(result);
+        }
+        catch(SQLException e)
+        {
+            System.out.print("getRoster: ");
+            System.out.println(e.getMessage());
+        }
+        return Roster;
+    }
 
-            while(result.next())
-            {
-                 rp = new RosterPlayer(
-                        result.getString("Name"),
+    public void tryMakeTable(String table)
+    {
+        try {
+            OpenConnection();
+            statement = connection.createStatement();
+            String create = "CREATE TABLE IF NOT EXISTS " + table + " (tid int, cid int, did int, region varchar(20), " +
+                    "name varchar(20), abbrev varchar(3), season int, won int, lost int, PRIMARY KEY (tid, season));";
+            statement.executeUpdate(create);
+        }
+        catch(SQLException e)
+        {
+            System.out.print("tryMakeTable: ");
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public ObservableList<RosterPlayer> buildRoster(ResultSet result)
+    {
+        ObservableList<RosterPlayer> Roster = FXCollections.observableArrayList();
+        RosterPlayer rp;
+        try
+        {
+            while (result.next()) {
+                rp = new RosterPlayer(
+                        result.getString("firstName") + " " + result.getString("lastName"),
                         result.getString("Pos"),
-                        result.getDouble("sum(MP)") / gamesPlayed,
-                        result.getDouble("sum(PTS)") / gamesPlayed,
-                        result.getDouble("sum(FGM)") / gamesPlayed,
-                        result.getDouble("sum(FGA)") / gamesPlayed,
-                        result.getDouble("sum(TPM)") / gamesPlayed,
-                        result.getDouble("sum(TPA)") / gamesPlayed,
-                        result.getDouble("sum(FTM)") / gamesPlayed,
-                        result.getDouble("sum(FTA)") / gamesPlayed,
-                        result.getDouble("sum(ORB)") / gamesPlayed,
-                        result.getDouble("sum(DRB)") / gamesPlayed,
-                        result.getDouble("sum(AST)") / gamesPlayed,
-                        result.getDouble("sum(STL)") / gamesPlayed,
-                        result.getDouble("sum(BLK)") / gamesPlayed,
+                        result.getString("abbrev"),
+                        result.getDouble(4),
+                        result.getDouble(5),
+                        result.getDouble(6),
+                        result.getDouble(7),
+                        result.getDouble(8),
+                        result.getDouble(9),
+                        result.getDouble(10),
+                        result.getDouble(11),
+                        result.getDouble(12),
+                        result.getDouble(13),
+                        result.getDouble(14),
+                        result.getDouble(15),
+                        result.getDouble(16),
                         //result.getDouble("sum(TO)") / gamesPlayed,
-                        result.getDouble("sum(PF)") / gamesPlayed,
-                        result.getDouble("sum(PM)") / gamesPlayed);
+                        result.getDouble(17),
+                        result.getDouble(18));
+                //System.out.println(rp.toString());
                 Roster.add(rp);
             }
-            /*
+        }
+        catch(SQLException e)
+        {
+            System.out.print("buildRoster: ");
+            System.out.println(e.getMessage());
+
+        }
+        return Roster;
+    }
+
+    public void viewResults(ResultSet result)
+    {
+        try {
             ResultSetMetaData rsmd = result.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (result.next()) {
@@ -129,16 +164,13 @@ public class GM {
                     System.out.print(columnValue + " " + rsmd.getColumnName(i));
                 }
                 System.out.println("");
-            }*/
-
+            }
         }
         catch(SQLException e)
         {
-            System.out.print("getRoster: ");
+            System.out.print("viewResults: ");
             System.out.println(e.getMessage());
-
         }
-        return Roster;
     }
 
     public String getCurrentTeam() {

@@ -2,9 +2,9 @@ package GM;
 
 public class RosterPlayer {
     private String df = "%.5f";
-    public int games;
+    public int games, tid;
     public double mp, pts, fgm, fga, fgp, tpm, tpa, tpp, ftm, fta, ftp, trb, orb, drb, ast, stl, blk, to, pf, plsmns;
-    public String name, pos, opp, score, wl;
+    public String name, pos, opp, score, wl, abbrev;
     public Team team;
     public boolean playoffs;
 
@@ -12,7 +12,7 @@ public class RosterPlayer {
     {
     }
 
-    public RosterPlayer(String name, String pos, double mp, double pts, double fgm, double fga, double tpm, double tpa,
+    public RosterPlayer(String name, String pos, String abbrev, double mp, double pts, double fgm, double fga, double tpm, double tpa,
                         double ftm, double fta, double orb, double drb, double ast, double stl, double blk, //double to,
                         double pf, double plsmns)
     {
@@ -38,6 +38,8 @@ public class RosterPlayer {
         this.name = name;
         this.pos = pos;
         this.mp = mp;
+        this.tid = tid;
+        this.abbrev = abbrev;
     }
 
     public double checkPercent(double x, double y)
@@ -45,6 +47,44 @@ public class RosterPlayer {
         if(y == 0) {return 0;}
         else {return x / y;}
     }
+
+    @Override
+    public String toString() {
+        return "RosterPlayer{" +
+                "df='" + df + '\'' +
+                ", games=" + games +
+                ", mp=" + mp +
+                ", pts=" + pts +
+                ", fgm=" + fgm +
+                ", fga=" + fga +
+                ", fgp=" + fgp +
+                ", tpm=" + tpm +
+                ", tpa=" + tpa +
+                ", tpp=" + tpp +
+                ", ftm=" + ftm +
+                ", fta=" + fta +
+                ", ftp=" + ftp +
+                ", trb=" + trb +
+                ", orb=" + orb +
+                ", drb=" + drb +
+                ", ast=" + ast +
+                ", stl=" + stl +
+                ", blk=" + blk +
+                ", to=" + to +
+                ", pf=" + pf +
+                ", plsmns=" + plsmns +
+                ", name='" + name + '\'' +
+                ", pos='" + pos + '\'' +
+                ", opp='" + opp + '\'' +
+                ", score='" + score + '\'' +
+                ", wl='" + wl + '\'' +
+                ", team=" + team +
+                ", playoffs=" + playoffs +
+                '}';
+    }
+
+    public String getAbbrev() {return abbrev;}
+
     public String getName() {return this.name;}
 
     public String getPos() {return this.pos;}
