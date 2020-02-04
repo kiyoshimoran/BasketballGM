@@ -15,10 +15,10 @@ public class Player {
     public Contract contract;
     public Draft draft;
     public String firstName, lastName;
-    public List<Integer> freeAgentMood;
+    public List<Double> freeAgentMood;
     public int gamesUntilTradable, hgt, ptModifier, rosterOrder, tid, weight, yearsFreeAgent, pid;
     public boolean hof, watch;
-    public Ratings ratings;
+    public List<Ratings> ratings;
     public List<Salary> salaries;
     public double value, valueNoPot, valueFuzz, valueNoPotFuzz, valueWithContract;
     public List<Injury> injuries;
@@ -26,9 +26,9 @@ public class Player {
 
     public Player() {}
 
-    public Player(Born born, Contract contract, Draft draft, String firstName, String lastName, List<Integer> freeAgentMood,
+    public Player(Born born, Contract contract, Draft draft, String firstName, String lastName, List<Double> freeAgentMood,
                   int gamesUntilTradable, int hgt, int ptModifier, int rosterOrder, int tid, int weight, int yearsFreeAgent,
-                  int pid, boolean hof, boolean watch, Ratings ratings, List<Salary> salaries, double value, double valueNoPot,
+                  int pid, boolean hof, boolean watch, List<Ratings> ratings, List<Salary> salaries, double value, double valueNoPot,
                   double valueFuzz, double valueNoPotFuzz, double valueWithContract, List<Injury> injuries, List<PlayerStats> stats)
     {
         this.born = born;
@@ -58,6 +58,67 @@ public class Player {
         this.stats = stats;
     }
 
+    public String toSQL() {
+        return "(" +  pid +
+                ", '" + firstName.replace("'", "''") + '\'' +
+                ", '" + lastName.replace("'", "''") + '\'' +
+                ", " + ((stats.isEmpty()) ? "2019" : Integer.toString(stats.get(0).getSeason())) +
+                ", " + gamesUntilTradable +
+                ", " + ptModifier +
+                ", " + rosterOrder +
+                ", " + tid +
+                ", " + weight +
+                ", " + yearsFreeAgent +
+                ", " + ((salaries.isEmpty()) ? "0" : salaries.get(0).toSQL()) +
+                //draft.toSQL() +
+                ", " + hof +
+                ", " + watch +
+                ratings.get(0).toSQL() +
+                ", " + value +
+                ", " + valueNoPot +
+                ", " + valueFuzz +
+                ", " + valueNoPotFuzz +
+                ", " + valueWithContract +
+                ((stats.isEmpty()) ? popStats() : stats.get(0).toSQL()) +
+                ')';
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "born=" + born +
+                ", contract=" + contract +
+                ", draft=" + draft +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", freeAgentMood=" + freeAgentMood +
+                ", gamesUntilTradable=" + gamesUntilTradable +
+                ", hgt=" + hgt +
+                ", ptModifier=" + ptModifier +
+                ", rosterOrder=" + rosterOrder +
+                ", tid=" + tid +
+                ", weight=" + weight +
+                ", yearsFreeAgent=" + yearsFreeAgent +
+                ", pid=" + pid +
+                ", hof=" + hof +
+                ", watch=" + watch +
+                ", ratings=" + ratings +
+                ", salaries=" + salaries +
+                ", value=" + value +
+                ", valueNoPot=" + valueNoPot +
+                ", valueFuzz=" + valueFuzz +
+                ", valueNoPotFuzz=" + valueNoPotFuzz +
+                ", valueWithContract=" + valueWithContract +
+                ", injuries=" + injuries +
+                ", stats=" + stats +
+                '}';
+    }
+
+    public String popStats()
+    {
+        return ", FALSE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0";
+    }
+
     public Born getBorn() {
         return born;
     }
@@ -78,7 +139,7 @@ public class Player {
         return lastName;
     }
 
-    public List<Integer> getFreeAgentMood() {
+    public List<Double> getFreeAgentMood() {
         return freeAgentMood;
     }
 
@@ -122,7 +183,7 @@ public class Player {
         return watch;
     }
 
-    public Ratings getRatings() {
+    public List<Ratings> getRatings() {
         return ratings;
     }
 

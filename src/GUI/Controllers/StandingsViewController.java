@@ -45,7 +45,6 @@ public class StandingsViewController implements Initializable {
         ObservableList<Team> eastern = FXCollections.observableArrayList();
         for(Team t: teams)
         {
-            System.out.println(t.abbrev);
             if(t.getCid() == 0)
             {
                 western.add(t);

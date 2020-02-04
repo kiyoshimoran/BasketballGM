@@ -5,7 +5,7 @@ import java.util.List;
 public class Draft {
 
     public int round, pick, tid, year, originalTid, pot, ovr;
-    public List<Skills> skills;
+    public List<String> skills;
 
     public Draft(int round, int pick, int tid, int year, int originalTid, int pot, int ovr) {
         this.round = round;
@@ -18,6 +18,17 @@ public class Draft {
     }
 
     public Draft() {
+    }
+
+    public String toSQL() {
+        return ", " + round +
+                ", " + pick +
+                ", " + tid +
+                ", " + year +
+                ", " + originalTid +
+                ", " + pot +
+                ", " + ovr;
+                //", " + skills;
     }
 
     public int getRound() {

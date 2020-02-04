@@ -62,6 +62,48 @@ public class PlayerStats {
         return playoffs;
     }
 
+    public String toSQL() {
+        return  ", " + yearsWithTeam +
+                ", " + gp +
+                ", " + gs +
+                ", " + fg +
+                ", " + fga +
+                ", " + fgAtRim +
+                ", " + fgaAtRim +
+                ", " + fgLowPost +
+                ", " + fgaLowPost +
+                ", " + fgMidRange +
+                ", " + fgaMidRange +
+                ", " + tp +
+                ", " + tpa +
+                ", " + ft +
+                ", " + fta +
+                ", " + pm +
+                ", " + orb +
+                ", " + drb +
+                ", " + ast +
+                ", " + tov +
+                ", " + stl +
+                ", " + blk +
+                ", " + ba +
+                ", " + pf +
+                ", " + pts +
+                ", " + per +
+                ", " + ewa +
+                ", " + astp +
+                ", " + blkp +
+                ", " + drbp +
+                ", " + orbp +
+                ", " + stlp +
+                ", " + trbp +
+                ", " + usgp +
+                ", " + drtg +
+                ", " + ortg +
+                ", " + dws +
+                ", " + ows +
+                ", " + min;
+    }
+
     public int getSeason() {
         return season;
     }

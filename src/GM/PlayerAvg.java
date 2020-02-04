@@ -3,14 +3,14 @@ package GM;
 public class PlayerAvg {
 
     public String firstName, lastName;
-    public int pid;
+    public int pid, season;
     public double mins, pts, fga, fgm, fgp, tpa, tpm, tpp, fta, ftm, ftp, orb, drb, trb, ast, stl, blk, tov, pf;
 
     public PlayerAvg() {}
 
     public PlayerAvg(String firstName, String lastName, int pid, double mins, double pts, double fga, double fgm, double fgp,
                      double tpa, double tpm, double tpp, double fta, double ftm, double ftp, double orb, double drb, double trb,
-                     double ast, double stl, double blk, double tov, double pf) {
+                     double ast, double stl, double blk, double tov, double pf, int season) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.pid = pid;
@@ -33,6 +33,11 @@ public class PlayerAvg {
         this.blk = blk;
         this.tov = tov;
         this.pf = pf;
+        this.season = season;
+    }
+
+    public int getSeason() {
+        return season;
     }
 
     public String getFirstName() {

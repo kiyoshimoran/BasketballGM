@@ -7,7 +7,7 @@ public class Ratings {
     public int stre, spd, jmp, endu, ins, dnk, ft, fg, tp, oiq, diq, drb, pss, reb, hgt, orv, pot, season;
     public String pos;
     public double fuzz;
-    List<Skills> skills;
+    List<String> skills;
 
     public Ratings() {
     }
@@ -33,6 +33,68 @@ public class Ratings {
         this.season = season;
         this.pos = pos;
         this.fuzz = fuzz;
+    }
+
+    public String toSQL() {
+        return ", " + stre +
+                ", " + spd +
+                ", " + jmp +
+                ", " + endu +
+                ", " + ins +
+                ", " + dnk +
+                ", " + ft +
+                ", " + fg +
+                ", " + tp +
+                ", " + oiq +
+                ", " + diq +
+                ", " + drb +
+                ", " + pss +
+                ", " + reb +
+                ", " + hgt +
+                ", " + orv +
+                ", " + pot +
+                ", '" + pos + '\'' +
+                ", " + fuzz +
+                ", " + skillsToSQL(skills);
+    }
+
+    public String skillsToSQL(List<String> skill)
+    {
+        return  (skill.contains("3") ? "1" : "0") +
+                ", " + (skill.contains("A") ? 1 : 0) +
+                ", " + (skill.contains("B") ? 1 : 0) +
+                ", " + (skill.contains("Di") ? 1 : 0) +
+                ", " + (skill.contains("Dp") ? 1 : 0) +
+                ", " + (skill.contains("Po") ? 1 : 0) +
+                ", " + (skill.contains("Pa") ? 1 : 0) +
+                ", " + (skill.contains("R") ? 1 : 0);
+    }
+
+    @Override
+    public String toString() {
+        return "Ratings{" +
+                "stre=" + stre +
+                ", spd=" + spd +
+                ", jmp=" + jmp +
+                ", endu=" + endu +
+                ", ins=" + ins +
+                ", dnk=" + dnk +
+                ", ft=" + ft +
+                ", fg=" + fg +
+                ", tp=" + tp +
+                ", oiq=" + oiq +
+                ", diq=" + diq +
+                ", drb=" + drb +
+                ", pss=" + pss +
+                ", reb=" + reb +
+                ", hgt=" + hgt +
+                ", orv=" + orv +
+                ", pot=" + pot +
+                ", season=" + season +
+                ", pos='" + pos + '\'' +
+                ", fuzz=" + fuzz +
+                ", skills=" + skills +
+                '}';
     }
 
     public int getStre() {

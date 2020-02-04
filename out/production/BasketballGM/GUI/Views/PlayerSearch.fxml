@@ -9,11 +9,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.PlayerSearchController">
+<AnchorPane prefHeight="798.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.PlayerSearchController">
    <children>
-      <AnchorPane layoutX="31.0" layoutY="27.0" prefHeight="772.0" prefWidth="1298.0">
+      <AnchorPane layoutX="17.0" layoutY="61.0" prefHeight="772.0" prefWidth="1298.0">
          <children>
-             <TableView fx:id="roster_table" layoutX="251.0" layoutY="221.0" prefHeight="390.0" prefWidth="905.0">
+             <TableView fx:id="roster_table" layoutX="251.0" layoutY="221.0" onMouseClicked="#clickTeam" prefHeight="390.0" prefWidth="979.0">
                  <columns>
                      <TableColumn fx:id="player_col" prefWidth="116.80000305175781" text="Player" />
                      <TableColumn fx:id="pos_col" prefWidth="33.60003662109375" text="Pos" />
@@ -27,9 +27,10 @@
                      <TableColumn fx:id="steals_col" prefWidth="75.0" text="Steals" />
                      <TableColumn fx:id="blocks_col" prefWidth="75.0" text="Blocks" />
                      <TableColumn fx:id="fouls_col" prefWidth="75.0" text="Fouls" />
+                  <TableColumn fx:id="team_col" prefWidth="75.0" text="Team" />
                  </columns>
              </TableView>
-            <Button layoutX="35.0" layoutY="585.0" mnemonicParsing="false" text="Back" />
+            <Button layoutX="35.0" layoutY="585.0" mnemonicParsing="false" onAction="#GoBack" text="Back" />
             <Button layoutX="213.0" layoutY="173.0" mnemonicParsing="false" onAction="#AddFilter" text="Add" />
             <Text layoutX="331.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Search">
                <font>

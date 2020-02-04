@@ -13,6 +13,10 @@ public class Salary {
         this.amount = amount;
     }
 
+    public String toSQL() {
+        return Double.toString(amount);
+    }
+
     public int getSeason() {
         return season;
     }
