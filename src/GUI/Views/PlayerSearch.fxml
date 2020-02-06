@@ -11,27 +11,28 @@
 
 <AnchorPane prefHeight="798.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.PlayerSearchController">
    <children>
-      <AnchorPane layoutX="17.0" layoutY="61.0" prefHeight="772.0" prefWidth="1298.0">
+      <AnchorPane layoutX="14.0" layoutY="61.0" prefHeight="772.0" prefWidth="1298.0">
          <children>
-             <TableView fx:id="roster_table" layoutX="251.0" layoutY="221.0" onMouseClicked="#clickTeam" prefHeight="390.0" prefWidth="979.0">
+             <TableView fx:id="roster_table" layoutX="251.0" layoutY="221.0" onMouseClicked="#clickTeam" prefHeight="390.0" prefWidth="1003.0">
                  <columns>
                      <TableColumn fx:id="player_col" prefWidth="116.80000305175781" text="Player" />
                      <TableColumn fx:id="pos_col" prefWidth="33.60003662109375" text="Pos" />
                      <TableColumn fx:id="mpg_col" prefWidth="75.0" text="MPG" />
                      <TableColumn fx:id="points_col" prefWidth="75.0" text="Points" />
-                     <TableColumn fx:id="fgp_col" prefWidth="75.0" text="FG%" />
-                     <TableColumn fx:id="ftp_col" prefWidth="75.0" text="FT%" />
-                     <TableColumn fx:id="tpp_col" prefWidth="75.0" text="3P%" />
+                     <TableColumn fx:id="fgp_col" prefWidth="55.0" text="FG%" />
+                     <TableColumn fx:id="ftp_col" prefWidth="58.0" text="FT%" />
+                     <TableColumn fx:id="tpp_col" prefWidth="60.0" text="3P%" />
                      <TableColumn fx:id="rebounds_col" prefWidth="75.0" text="Rebounds" />
-                     <TableColumn fx:id="assists_col" prefWidth="75.0" text="Assists" />
-                     <TableColumn fx:id="steals_col" prefWidth="75.0" text="Steals" />
+                     <TableColumn fx:id="assists_col" prefWidth="71.0" text="Assists" />
+                     <TableColumn fx:id="steals_col" prefWidth="64.0" text="Steals" />
                      <TableColumn fx:id="blocks_col" prefWidth="75.0" text="Blocks" />
-                     <TableColumn fx:id="fouls_col" prefWidth="75.0" text="Fouls" />
-                  <TableColumn fx:id="team_col" prefWidth="75.0" text="Team" />
+                     <TableColumn fx:id="fouls_col" prefWidth="85.0" text="Fouls" />
+                  <TableColumn fx:id="team_col" prefWidth="82.0" text="Team" />
+                  <TableColumn fx:id="to_col" prefWidth="75.0" text="TO" />
                  </columns>
              </TableView>
             <Button layoutX="35.0" layoutY="585.0" mnemonicParsing="false" onAction="#GoBack" text="Back" />
-            <Button layoutX="213.0" layoutY="173.0" mnemonicParsing="false" onAction="#AddFilter" text="Add" />
+            <Button layoutX="105.0" layoutY="476.0" mnemonicParsing="false" onAction="#AddFilter" text="Add" />
             <Text layoutX="331.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Search">
                <font>
                   <Font size="36.0" />
@@ -41,6 +42,19 @@
             <ComboBox fx:id="statBox" layoutX="19.0" layoutY="221.0" prefHeight="25.0" prefWidth="66.0" />
             <ComboBox fx:id="comparator" layoutX="105.0" layoutY="221.0" prefHeight="25.0" prefWidth="66.0" />
             <Text layoutX="79.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Filter" />
+            <TextField fx:id="valueField1" layoutX="191.0" layoutY="264.0" prefHeight="25.0" prefWidth="41.0" />
+            <ComboBox fx:id="statBox1" layoutX="19.0" layoutY="264.0" prefHeight="25.0" prefWidth="66.0" />
+            <ComboBox fx:id="comparator1" layoutX="105.0" layoutY="264.0" prefHeight="25.0" prefWidth="66.0" />
+            <TextField fx:id="valueField3" layoutX="191.0" layoutY="352.0" prefHeight="25.0" prefWidth="41.0" />
+            <ComboBox fx:id="statBox3" layoutX="19.0" layoutY="352.0" prefHeight="25.0" prefWidth="66.0" />
+            <ComboBox fx:id="comparator3" layoutX="105.0" layoutY="352.0" prefHeight="25.0" prefWidth="66.0" />
+            <TextField fx:id="valueField2" layoutX="191.0" layoutY="309.0" prefHeight="25.0" prefWidth="41.0" />
+            <ComboBox fx:id="statBox2" layoutX="19.0" layoutY="309.0" prefHeight="25.0" prefWidth="66.0" />
+            <ComboBox fx:id="comparator2" layoutX="105.0" layoutY="309.0" prefHeight="25.0" prefWidth="66.0" />
+            <TextField fx:id="valueField4" layoutX="191.0" layoutY="391.0" prefHeight="25.0" prefWidth="41.0" />
+            <ComboBox fx:id="statBox4" layoutX="19.0" layoutY="391.0" prefHeight="25.0" prefWidth="66.0" />
+            <ComboBox fx:id="comparator4" layoutX="105.0" layoutY="391.0" prefHeight="25.0" prefWidth="66.0" />
+            <Button fx:id="clearButton" layoutX="175.0" layoutY="476.0" mnemonicParsing="false" onAction="#clearFilters" text="Clear" />
          </children>
       </AnchorPane>
    </children>

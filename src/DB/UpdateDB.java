@@ -53,6 +53,7 @@ public class UpdateDB {
         //parse json
         try (Reader reader = new FileReader(filepath)) {
             commish = gson.fromJson(reader, Commissioner.class);
+            //addPlayers(commish.players, "Players");
         } catch (IOException e) {
             System.out.println("no filepath");
             e.printStackTrace();
@@ -69,8 +70,8 @@ public class UpdateDB {
                 "dnk int, ftskill int, fgskill int, tpskill int, oiq int, diq int, drbskill int, pss int, reb int, hgt int, orv int , pot int, " +
                 "pos varchar(5), fuzz double, '3' boolean, A boolean, B boolean, Di boolean, Dp boolean, Po boolean, Ps boolean, " +
                 "R boolean, value double, valueNoPot double, valueFuzz double, valueNoPotFuzz double, valueWithContract double, " +
-                "yearsWithTeam int, gp double, gs int, fg int, fga int, fgAtRim int, fgaAtRim int, fgLowPost int, fgaLowPost int, " +
-                "fgMidRange int, fgaMidRange int, tp int, tpa int, ft int, fta int, pm int, orb int, drb int, ast double, tov int, " +
+                "yearsWithTeam int, gp double, gs int, fg double, fga int, fgAtRim int, fgaAtRim int, fgLowPost int, fgaLowPost int, " +
+                "fgMidRange int, fgaMidRange int, tp double, tpa int, ft double, fta int, pm int, orb int, drb int, ast double, tov int, " +
                 "stl int, blk int, ba int, pf int, pts int, per double, ewa double, astp double, blkp double, drbp double, " +
                 "orbp double, stlp double, trbp double, usgp double, drtg double, ortg double, dws double, ows double, min double," +
                 "PRIMARY KEY(pid, season));";
@@ -83,7 +84,7 @@ public class UpdateDB {
             for(Player p : players)
             {
                 add = "INSERT INTO " + table + " VALUES" + p.toSQL();
-                System.out.println(add);
+                //System.out.println(add);
                 stmt = connection.createStatement();
                 stmt.executeUpdate(add);
             }

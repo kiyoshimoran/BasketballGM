@@ -2,6 +2,7 @@ package GM;
 
 import GM.*;
 import DB.*;
+import GUI.Python.PyLauncher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -19,6 +20,7 @@ public class GM {
     private ResultSet result;
     private ResultSet games;
     public String currentTeam;
+    public static PyLauncher pl = new PyLauncher();
     public GM() {}
 
     public GM(HashMap l)
@@ -85,6 +87,35 @@ public class GM {
             OpenConnection();
             statement = connection.createStatement();
             preparedstatement = connection.prepareStatement(query);
+            result = preparedstatement.executeQuery();
+            Roster = buildRoster(result);
+        }
+        catch(SQLException e)
+        {
+            System.out.print("getRoster: ");
+            System.out.println(e.getMessage());
+        }
+        return Roster;
+    }
+
+    public ObservableList<RosterPlayer> getRoster(String team)
+    {
+        String table = "Players";
+        RosterPlayer rp;
+        ObservableList<RosterPlayer> Roster = FXCollections.observableArrayList();
+        String stats[] = {"mp", "fgm", "fga", "ftm", "fta", "pts", "trb", "ast", "blk", "stl", "pf"};
+        String query = "SELECT firstName, lastName, pos, min / gp, pts / gp, fg / gp, fga / gp, tp / gp, tpa / gp, ft / gp, fta / gp,  " +
+                "orb / gp, drb / gp, ast / gp, stl / gp, blk / gp, pf / gp, pm / gp, t.abbrev FROM Players p join Teams t on p.tid = t.tid " +
+                "WHERE p.tid = t.tid and t.abbrev = ";
+        System.out.println(query + currentTeam);
+        //String query = "SELECT firstName, lastName, pos, min / gp, pts / gp, fg / gp, fga / gp, tp / gp, tpa / gp, ft / gp, fta / gp,  " +
+        //    "orb / gp, drb / gp, ast / gp, stl / gp, blk / gp, pf / gp, pm / gp FROM Players;";
+        //System.out.println(query);
+        try
+        {
+            OpenConnection();
+            statement = connection.createStatement();
+            preparedstatement = connection.prepareStatement(query + currentTeam);
             result = preparedstatement.executeQuery();
             Roster = buildRoster(result);
         }

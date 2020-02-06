@@ -3,6 +3,7 @@ package GUI.Controllers;
 import DB.CreateConnection;
 import GM.*;
 
+import static GM.GM.pl;
 import static GUI.Main.gm;
 import static GUI.Main.navigation;
 
@@ -67,6 +68,7 @@ public class TeamViewController implements Initializable {
         Statement stmt;
         ResultSet result;
 
+
         try {
             OpenConnection();
             query = "SELECT name, region, won, lost from Teams WHERE abbrev = " + gm.currentTeam + "";
@@ -91,7 +93,7 @@ public class TeamViewController implements Initializable {
         }
         formatCells();
 
-        roster_table.setItems(gm.getRoster());
+        roster_table.setItems(gm.getRoster(gm.currentTeam));
         mpg_col.setSortType(TableColumn.SortType.DESCENDING);
         player_col.setCellValueFactory(new PropertyValueFactory("name"));
         pos_col.setCellValueFactory(new PropertyValueFactory("pos"));
