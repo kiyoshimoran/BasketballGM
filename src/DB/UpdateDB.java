@@ -53,7 +53,7 @@ public class UpdateDB {
         //parse json
         try (Reader reader = new FileReader(filepath)) {
             commish = gson.fromJson(reader, Commissioner.class);
-            //addPlayers(commish.players, "Players");
+            addPlayers(commish.players, "Players");
         } catch (IOException e) {
             System.out.println("no filepath");
             e.printStackTrace();
@@ -68,7 +68,7 @@ public class UpdateDB {
                 "season int, gamesUntilTradable int, ptModifier int, rosterOrder int, tid int, weight int, " +
                 "yearsFreeAgent int, salary int, hof boolean, watch boolean, stre int, spd int, jmp int, endu int, ins int, " +
                 "dnk int, ftskill int, fgskill int, tpskill int, oiq int, diq int, drbskill int, pss int, reb int, hgt int, orv int , pot int, " +
-                "pos varchar(5), fuzz double, '3' boolean, A boolean, B boolean, Di boolean, Dp boolean, Po boolean, Ps boolean, " +
+                "pos varchar(5), fuzz double, three boolean, A boolean, B boolean, Di boolean, Dp boolean, Po boolean, Ps boolean, " +
                 "R boolean, value double, valueNoPot double, valueFuzz double, valueNoPotFuzz double, valueWithContract double, " +
                 "yearsWithTeam int, gp double, gs int, fg double, fga int, fgAtRim int, fgaAtRim int, fgLowPost int, fgaLowPost int, " +
                 "fgMidRange int, fgaMidRange int, tp double, tpa int, ft double, fta int, pm int, orb int, drb int, ast double, tov int, " +

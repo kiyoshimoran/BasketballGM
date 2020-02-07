@@ -21,7 +21,8 @@ public class Main extends Application {
     {
         //navigation.performSegue("Views/TeamView.fxml", false);
         navigation.performSegue("Views/StandingsView.fxml", true);
-
+        //PyLauncher pl = new PyLauncher();
+        //pl.doStuff();
     }
 
     public static void main(String[] args) {

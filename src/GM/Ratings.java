@@ -60,13 +60,13 @@ public class Ratings {
 
     public String skillsToSQL(List<String> skill)
     {
-        return  (skill.contains("3") ? "1" : "0") +
+        return  (skill.contains("3") ? 1 : 0) +
                 ", " + (skill.contains("A") ? 1 : 0) +
                 ", " + (skill.contains("B") ? 1 : 0) +
                 ", " + (skill.contains("Di") ? 1 : 0) +
                 ", " + (skill.contains("Dp") ? 1 : 0) +
                 ", " + (skill.contains("Po") ? 1 : 0) +
-                ", " + (skill.contains("Pa") ? 1 : 0) +
+                ", " + (skill.contains("Ps") ? 1 : 0) +
                 ", " + (skill.contains("R") ? 1 : 0);
     }
 

@@ -15,16 +15,16 @@ public class PyLauncher {
         System.out.println("running pylauncher");
         try {
             String prg = "python ..\\..\\..\\dataVisualizer.py";
-            System.out.println(prg);
             System.out.println("launching python");
             ProcessBuilder pb = new ProcessBuilder("python", "dataVisualizer.py");
-            pb.start();
+            p = pb.start();
             System.out.println("after start");
         }
         catch(IOException e)
         {
             System.out.println("PyLauncher: " + e);
         }
+
     }
 
     public void runScript(){
