@@ -19,6 +19,8 @@ public class Meta {
                 '}';
     }
 
+    public int getSeason() { return Integer.parseInt(phaseText.substring(0, 4)); }
+
     public String getPhasetext() {
         return phaseText;
     }

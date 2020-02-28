@@ -64,14 +64,14 @@ public class TeamViewController implements Initializable {
     @Override public void initialize(URL url, ResourceBundle rb)
     {
         String name, record, query;
-
+        String table = "Teams" + gm.currentSeason;
         Statement stmt;
         ResultSet result;
-
+        System.out.println("TeamView season: " + gm.getCurrentSeason());
 
         try {
             OpenConnection();
-            query = "SELECT name, region, won, lost from Teams WHERE abbrev = " + gm.currentTeam + "";
+            query = "SELECT name, region, won, lost from " + table + " WHERE abbrev = " + gm.currentTeam + "";
             stmt = connection.createStatement();
             result = stmt.executeQuery(query);
             while(result.next())

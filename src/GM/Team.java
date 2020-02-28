@@ -11,7 +11,7 @@ public class Team {
     private transient String imgURL;
     public int tid, cid, did;
     public Budget budget;
-    public List<Seasons> seasons;
+    public List<Season> seasons;
 
     private transient List<TeamStats> stats;
     private transient List<String> colors;
@@ -19,7 +19,7 @@ public class Team {
     public Team() {}
 
     public Team(String region, String name, String abbrev, String imgURL, String strategy, int tid, int cid, int did,
-                Budget budget, List<Seasons> seasons, List<TeamStats> stats, List<String> colors) {
+                Budget budget, List<Season> seasons, List<TeamStats> stats, List<String> colors) {
         this.region = region;
         this.name = name;
         this.abbrev = abbrev;
@@ -45,16 +45,14 @@ public class Team {
         this.record = Integer.toString(won) + "-" + Integer.toString(lost);
     }
 
-    public String toSQL() {
+    public String toSQL(int season) {
         return "(" + tid +
                 ", " + cid +
                 ", " + did +
                 ", '" + region + '\'' +
                 ", '" + name + '\'' +
                 ", '" + abbrev + '\'' +
-                ", " + seasons.get(0).getSeason() +
-                ", " + seasons.get(0).getWon() +
-                ", " + seasons.get(0).getLost() +
+                ", " + getRecord(seasons, season) +
                 //", " + seasons.get(0).getExpenses().getSalary().getAmount() +
                 ')';
     }
@@ -75,6 +73,19 @@ public class Team {
                 ", " + stats +
                 ", " + colors +
                 ')';
+    }
+
+    public String getRecord(List<Season> seasons, int season)
+    {
+        String record = "";
+        for(Season s : seasons)
+        {
+            if(s.getSeason() == season)
+            {
+                record = s.getWon() + ", " + s.getLost();
+            }
+        }
+        return record;
     }
 
     public String getRegion() {
@@ -113,7 +124,7 @@ public class Team {
         return budget;
     }
 
-    public List<Seasons> getSeasons() {
+    public List<Season> getSeasons() {
         return seasons;
     }
 

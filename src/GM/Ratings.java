@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Ratings {
 
-    public int stre, spd, jmp, endu, ins, dnk, ft, fg, tp, oiq, diq, drb, pss, reb, hgt, orv, pot, season;
+    public int stre, spd, jmp, endu, ins, dnk, ft, fg, tp, oiq, diq, drb, pss, reb, hgt, ovr, pot, season;
     public String pos;
     public double fuzz;
     List<String> skills;
@@ -12,7 +12,7 @@ public class Ratings {
     public Ratings() {
     }
 
-    public Ratings(int stre, int spd, int jmp, int endu, int ins, int dnk, int ft, int fg, int tp, int oiq, int diq, int drb, int pss, int reb, int hgt, int orv, int pot, int season, String pos, double fuzz) {
+    public Ratings(int stre, int spd, int jmp, int endu, int ins, int dnk, int ft, int fg, int tp, int oiq, int diq, int drb, int pss, int reb, int hgt, int ovr, int pot, int season, String pos, double fuzz) {
         this.stre = stre;
         this.spd = spd;
         this.jmp = jmp;
@@ -28,7 +28,7 @@ public class Ratings {
         this.pss = pss;
         this.reb = reb;
         this.hgt = hgt;
-        this.orv = orv;
+        this.ovr = ovr;
         this.pot = pot;
         this.season = season;
         this.pos = pos;
@@ -51,7 +51,7 @@ public class Ratings {
                 ", " + pss +
                 ", " + reb +
                 ", " + hgt +
-                ", " + orv +
+                ", " + ovr +
                 ", " + pot +
                 ", '" + pos + '\'' +
                 ", " + fuzz +
@@ -88,7 +88,7 @@ public class Ratings {
                 ", pss=" + pss +
                 ", reb=" + reb +
                 ", hgt=" + hgt +
-                ", orv=" + orv +
+                ", ovr=" + ovr +
                 ", pot=" + pot +
                 ", season=" + season +
                 ", pos='" + pos + '\'' +
@@ -157,8 +157,8 @@ public class Ratings {
         return hgt;
     }
 
-    public int getOrv() {
-        return orv;
+    public int getovr() {
+        return ovr;
     }
 
     public int getPot() {

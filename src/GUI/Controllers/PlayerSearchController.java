@@ -16,8 +16,7 @@ import java.net.URL;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static GUI.Main.gm;
 import static GUI.Main.navigation;
@@ -30,7 +29,7 @@ public class PlayerSearchController implements Initializable {
     public static String table = "Players";
     String query = "SELECT firstName, lastName, pos, min / gp, pts / gp, fg / gp, fga / gp, tp / gp, tpa / gp, ft / gp, fta / gp,  " +
             "orb / gp, drb / gp, ast / gp, stl / gp, blk / gp, pf / gp, pm / gp, t.abbrev FROM Players p join Teams t on p.tid = t.tid WHERE ";
-    public int filters = 0;
+
     public ObservableList<String> comparators = FXCollections.observableArrayList(">", ">=", "=", "<", "<=");
     public ObservableList<String> stats = FXCollections.observableArrayList("min", "fg", "fga", "fgp", "ft", "fta",
             "ftp", "tp", "tpa", "tpp", "pts", "rb", "ast", "blk", "stl", "pf");
@@ -66,6 +65,14 @@ public class PlayerSearchController implements Initializable {
     @FXML TextField valueField2;
     @FXML TextField valueField3;
     @FXML TextField valueField4;
+    @FXML CheckBox three;
+    @FXML CheckBox A;
+    @FXML CheckBox B;
+    @FXML CheckBox Di;
+    @FXML CheckBox Dp;
+    @FXML CheckBox Po;
+    @FXML CheckBox Ps;
+    @FXML CheckBox R;
 
 
     @Override public void initialize(URL url, ResourceBundle rb)
@@ -89,9 +96,14 @@ public class PlayerSearchController implements Initializable {
     }
 
     @FXML
-    void AddFilter(ActionEvent events)
+    void ApplyFilter(ActionEvent events)
     {
         RosterPlayer rp;
+        String ptable = "Players" + gm.getCurrentSeason();
+        String ttable = "Teams" + gm.getCurrentSeason();
+        String query = "SELECT firstName, lastName, pos, min / gp, pts / gp, fg / gp, fga / gp, tp / gp, tpa / gp, ft / gp, fta / gp,  " +
+                "orb / gp, drb / gp, ast / gp, stl / gp, blk / gp, pf / gp, pm / gp, t.abbrev FROM " + ptable + " p join " +
+                ttable + " t on p.tid = t.tid WHERE ";
         ObservableList<RosterPlayer> Roster = FXCollections.observableArrayList();
         String qFilters = checkFilters();
         try {
@@ -129,7 +141,6 @@ public class PlayerSearchController implements Initializable {
         fouls_col.setCellValueFactory(new PropertyValueFactory("pf"));
         roster_table.getColumns().setAll(player_col, pos_col, team_col, mpg_col, points_col, fgp_col, ftp_col, tpp_col, assists_col, rebounds_col, steals_col, blocks_col, to_col, fouls_col);
         roster_table.getSortOrder().add(mpg_col);
-        addAnotherFilter();
     }
 
     @FXML
@@ -152,6 +163,20 @@ public class PlayerSearchController implements Initializable {
         valueField4.clear();
     }
 
+    public String checkSkills()
+    {
+        String temp = "";
+        ArrayList<CheckBox> boxList = new ArrayList<CheckBox>(Arrays.asList(three, A, B, Di, Dp, Po, Ps, R));
+        for(CheckBox b : boxList)
+        {
+            if(b.isSelected())
+            {
+                temp += " and " + b.getId() + " = 1";
+            }
+        }
+        return temp;
+    }
+
     public String checkFilters()
     {
         String temp = "";
@@ -170,7 +195,13 @@ public class PlayerSearchController implements Initializable {
         if(!comparator4.getSelectionModel().isEmpty() && !statBox4.getSelectionModel().isEmpty() && !valueField4.getText().isEmpty()) {
             temp += " and " + setQuery(statBox4.getValue()) + comparator4.getValue() + " " + valueField4.getText();
         }
+        temp += checkSkills();
+        if(temp.startsWith(" and "))
+        {
+            temp = temp.substring(4);
+        }
         temp += ";";
+        System.out.println("applyFilter: " + temp);
         return temp;
     }
 

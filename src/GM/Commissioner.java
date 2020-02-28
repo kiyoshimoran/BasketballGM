@@ -47,6 +47,8 @@ public class Commissioner {
                 ")";
     }
 
+    public int getSeason() { return meta.getSeason(); }
+
     public String getVersion() {
         return version;
     }

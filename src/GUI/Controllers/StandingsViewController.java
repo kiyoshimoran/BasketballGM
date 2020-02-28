@@ -36,13 +36,27 @@ public class StandingsViewController implements Initializable {
     @FXML TableColumn<Team, String> east_teams;
     @FXML TableColumn<Team, String> west_records;
     @FXML TableColumn<Team, String> east_records;
+    @FXML ComboBox<Integer> season_box;
 
 
     @Override public void initialize(URL url, ResourceBundle rb)
     {
-        ObservableList<Team> teams = gm.getTeams();
+        UpdateDB udb = new UpdateDB();
+        udb.addSeason();
+        ObservableList<Integer> seasons = gm.getSeasons();
+        season_box.setItems(seasons);
+        int size = seasons.size();
+        System.out.println(seasons.get(size - 1));
+        setTeams(seasons.get(size - 1));
+        gm.setCurrentSeason(seasons.get(size - 1));
+    }
+
+    public void setTeams(int season)
+    {
+        ObservableList<Team> teams = gm.getTeams(season);
         ObservableList<Team> western = FXCollections.observableArrayList();
         ObservableList<Team> eastern = FXCollections.observableArrayList();
+
         for(Team t: teams)
         {
             if(t.getCid() == 0)
@@ -67,7 +81,15 @@ public class StandingsViewController implements Initializable {
         East.getColumns().setAll(east_teams, east_records);
         West.getSortOrder().add(west_records);
         East.getSortOrder().add(east_records);
+    }
 
+    @FXML
+    void setSeason()
+    {
+        int season = season_box.getValue();
+        setTeams(season);
+        gm.setCurrentSeason(season);
+        System.out.println("setSeason gm.season: " + gm.getCurrentSeason());
     }
 
     @FXML
