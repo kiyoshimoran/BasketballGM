@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.Python.PyLauncher;
 import javafx.application.Application;
 import GUI.NavigationStack;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import GM.*;
+
+import java.io.IOException;
 
 public class Main extends Application {
 
@@ -18,6 +21,8 @@ public class Main extends Application {
     {
         //navigation.performSegue("Views/TeamView.fxml", false);
         navigation.performSegue("Views/StandingsView.fxml", true);
+        //PyLauncher pl = new PyLauncher();
+        //pl.doStuff();
     }
 
     public static void main(String[] args) {

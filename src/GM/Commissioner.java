@@ -47,19 +47,7 @@ public class Commissioner {
                 ")";
     }
 
-    /*
-    @Override
-    public String toString() {
-        return "Commisioner{" +
-                "version='" + version + '\'' +
-                ", Meta=" + meta +
-                ", startingSeason='" + startingSeason + '\'' +
-                ", Teams=" + teams +
-                ", ReleasedPlayers=" + ReleasedPlayers +
-                ", Players=" + players +
-                ", Games=" + Games +
-                '}';
-    }*/
+    public int getSeason() { return meta.getSeason(); }
 
     public String getVersion() {
         return version;

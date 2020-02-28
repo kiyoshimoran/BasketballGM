@@ -24,6 +24,17 @@ public class Player {
     public List<Injury> injuries;
     public List<PlayerStats> stats;
 
+    /*
+    3: Three Point Shooter
+    A: Athlete
+    B: Ball Handler
+    Di: Interior Defender
+    Dp: Perimeter Defender
+    Po: Post Scorer
+    Ps: Passer
+    R: Rebounder
+     */
+
     public Player() {}
 
     public Player(Born born, Contract contract, Draft draft, String firstName, String lastName, List<Double> freeAgentMood,
@@ -58,29 +69,65 @@ public class Player {
         this.stats = stats;
     }
 
-    public String toSQL() {
+    public String toSQL(int season) {
         return "(" +  pid +
                 ", '" + firstName.replace("'", "''") + '\'' +
                 ", '" + lastName.replace("'", "''") + '\'' +
-                ", " + ((stats.isEmpty()) ? "2019" : Integer.toString(stats.get(0).getSeason())) +
+                ", " + season +
                 ", " + gamesUntilTradable +
                 ", " + ptModifier +
                 ", " + rosterOrder +
                 ", " + tid +
                 ", " + weight +
                 ", " + yearsFreeAgent +
-                ", " + ((salaries.isEmpty()) ? "0" : salaries.get(0).toSQL()) +
+                ", " + ((salaries.isEmpty()) ? "0" : getSeasonSalary(salaries, season)) +
                 //draft.toSQL() +
                 ", " + hof +
                 ", " + watch +
-                ratings.get(0).toSQL() +
+                getSeasonRatings(ratings, season) +
                 ", " + value +
                 ", " + valueNoPot +
                 ", " + valueFuzz +
                 ", " + valueNoPotFuzz +
                 ", " + valueWithContract +
-                ((stats.isEmpty()) ? popStats() : stats.get(0).toSQL()) +
+                ((stats.isEmpty()) ? popStats() : getSeasonStats(stats, season)) +
                 ')';
+    }
+
+    public String getSeasonStats(List<PlayerStats> list, int season)
+    {
+        for(PlayerStats p : list)
+        {
+            if(p.getSeason() == season)
+            {
+                return p.toSQL();
+            }
+        }
+        return list.get(0).toSQL();
+    }
+
+    public String getSeasonRatings(List<Ratings> list, int season)
+    {
+        for(Ratings r : list)
+        {
+            if(r.getSeason() == season)
+            {
+                return r.toSQL();
+            }
+        }
+        return list.get(0).toSQL();
+    }
+
+    public String getSeasonSalary(List<Salary> list, int season)
+    {
+        for(Salary s : list)
+        {
+            if(s.getSeason() == season)
+            {
+                return s.toSQL();
+            }
+        }
+        return list.get(0).toSQL();
     }
 
     @Override

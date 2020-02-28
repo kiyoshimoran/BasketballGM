@@ -2,6 +2,7 @@ package GM;
 
 import GM.*;
 import DB.*;
+import GUI.Python.PyLauncher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,6 +10,8 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static GUI.Main.gm;
 
 public class GM {
     public HashMap<Integer, League> leagues;
@@ -19,6 +22,8 @@ public class GM {
     private ResultSet result;
     private ResultSet games;
     public String currentTeam;
+    public int currentSeason;
+    public static PyLauncher pl = new PyLauncher();
     public GM() {}
 
     public GM(HashMap l)
@@ -32,15 +37,37 @@ public class GM {
         connection = createObj.getConnection();
     }
 
-    public ObservableList<Team> getTeams()
+    public ObservableList<Integer> getSeasons()
+    {
+        ObservableList<Integer> seasons = FXCollections.observableArrayList();
+        String query = "SELECT DISTINCT season from Players";
+        try {
+            OpenConnection();
+            Statement stmt = connection.createStatement();
+            result = stmt.executeQuery(query);
+            //DatabaseMetaData md = connection.getMetaData();
+            //ResultSet rs = md.getTables(null, null, "%", null);
+            while (result.next())
+            {
+                seasons.add(result.getInt("season"));
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println("getSeasons: ");
+            System.out.println(e.getMessage());
+        }
+        return seasons;
+    }
+
+    public ObservableList<Team> getTeams(int season)
     {
         ObservableList<Team> Teams = FXCollections.observableArrayList();
-        String table = "Teams";
+        String table = "Teams" + Integer.toString(season);
         tryMakeTable(table);
         String query = "SELECT * from " + table;
+        System.out.println(query);
         UpdateDB udb = new UpdateDB();
-        Commissioner c = new Commissioner();
-        udb.addSeason();
         try
         {
             OpenConnection();
@@ -63,8 +90,8 @@ public class GM {
         }
         catch(SQLException e)
         {
+            System.out.println("getTeams: ");
             System.out.println(e.getMessage());
-
         }
         return Teams;
     }
@@ -85,6 +112,35 @@ public class GM {
             OpenConnection();
             statement = connection.createStatement();
             preparedstatement = connection.prepareStatement(query);
+            result = preparedstatement.executeQuery();
+            Roster = buildRoster(result);
+        }
+        catch(SQLException e)
+        {
+            System.out.print("getRoster: ");
+            System.out.println(e.getMessage());
+        }
+        return Roster;
+    }
+
+    public ObservableList<RosterPlayer> getRoster(String team)
+    {
+        String table = "Players" + Integer.toString(gm.getCurrentSeason());;
+        RosterPlayer rp;
+        ObservableList<RosterPlayer> Roster = FXCollections.observableArrayList();
+        String stats[] = {"mp", "fgm", "fga", "ftm", "fta", "pts", "trb", "ast", "blk", "stl", "pf"};
+        String query = "SELECT firstName, lastName, pos, min / gp, pts / gp, fg / gp, fga / gp, tp / gp, tpa / gp, ft / gp, fta / gp,  " +
+                "orb / gp, drb / gp, ast / gp, stl / gp, blk / gp, pf / gp, pm / gp, t.abbrev FROM " + table + " p join Teams t on p.tid = t.tid " +
+                "WHERE p.tid = t.tid and t.abbrev = ";
+        System.out.println(query + currentTeam);
+        //String query = "SELECT firstName, lastName, pos, min / gp, pts / gp, fg / gp, fga / gp, tp / gp, tpa / gp, ft / gp, fta / gp,  " +
+        //    "orb / gp, drb / gp, ast / gp, stl / gp, blk / gp, pf / gp, pm / gp FROM Players;";
+        //System.out.println(query);
+        try
+        {
+            OpenConnection();
+            statement = connection.createStatement();
+            preparedstatement = connection.prepareStatement(query + currentTeam);
             result = preparedstatement.executeQuery();
             Roster = buildRoster(result);
         }
@@ -179,6 +235,14 @@ public class GM {
 
     public void setCurrentTeam(String currentTeam) {
         this.currentTeam = '"' + currentTeam + '"';
+    }
+
+    public void setCurrentSeason(int currentSeason) {
+        this.currentSeason = currentSeason;
+    }
+
+    public int getCurrentSeason() {
+        return currentSeason;
     }
 
     public HashMap getLeagues()

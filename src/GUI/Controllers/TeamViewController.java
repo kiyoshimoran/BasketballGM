@@ -3,6 +3,7 @@ package GUI.Controllers;
 import DB.CreateConnection;
 import GM.*;
 
+import static GM.GM.pl;
 import static GUI.Main.gm;
 import static GUI.Main.navigation;
 
@@ -63,13 +64,14 @@ public class TeamViewController implements Initializable {
     @Override public void initialize(URL url, ResourceBundle rb)
     {
         String name, record, query;
-
+        String table = "Teams" + gm.currentSeason;
         Statement stmt;
         ResultSet result;
+        System.out.println("TeamView season: " + gm.getCurrentSeason());
 
         try {
             OpenConnection();
-            query = "SELECT name, region, won, lost from Teams WHERE abbrev = " + gm.currentTeam + "";
+            query = "SELECT name, region, won, lost from " + table + " WHERE abbrev = " + gm.currentTeam + "";
             stmt = connection.createStatement();
             result = stmt.executeQuery(query);
             while(result.next())
@@ -91,7 +93,7 @@ public class TeamViewController implements Initializable {
         }
         formatCells();
 
-        roster_table.setItems(gm.getRoster());
+        roster_table.setItems(gm.getRoster(gm.currentTeam));
         mpg_col.setSortType(TableColumn.SortType.DESCENDING);
         player_col.setCellValueFactory(new PropertyValueFactory("name"));
         pos_col.setCellValueFactory(new PropertyValueFactory("pos"));

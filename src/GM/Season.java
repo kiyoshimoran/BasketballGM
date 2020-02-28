@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 
 import java.util.List;
 
-public class Seasons {
+public class Season {
 
     public transient Stats  ts;
     private transient Mood mood;
@@ -17,9 +17,9 @@ public class Seasons {
     public transient Revenues revenues;
     public Expenses expenses;
 
-    public Seasons() {}
+    public Season() {}
 
-    public Seasons(int season, int won, int lost)
+    public Season(int season, int won, int lost)
     {
         this.season = season;
         this.won = won;
