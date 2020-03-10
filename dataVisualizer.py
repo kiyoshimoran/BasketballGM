@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def try_connect():
 	try:
-		conn = sqlite3.connect('RealGMdb.db')
+		conn = sqlite3.connect('../RealGMdb.db')
 		c = conn.cursor()
 		print("connection established")
 	except Error as e:
