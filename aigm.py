@@ -9,7 +9,7 @@ def within(x, y, z):
 
 def tryConnect():
     try:
-        conn = sqlite3.connect('RealGMdb.db')
+        conn = sqlite3.connect('../RealGMdb.db')
         c = conn.cursor()
         print("connection established")
     except Error as e:
@@ -17,13 +17,13 @@ def tryConnect():
     return c
 
 def getDataSet(c, year):
-    query = "SELECT * from Players where min > 0 and season = {}".format(year)
+    query = "SELECT stre, spd, jmp, endu, ins, dnk, ft, fg, tp, oiq, diq, drb, pss, reb, hgt, three, A, B, Di, Dp, Po, Ps, R, ovr from Players where min > 0 and season = {}".format(year)
     c.execute(query)
     results = c.fetchall()
     return results
 
 def getDataSets(c, year):
-    query = "SELECT * from Players where min > 0 and season != {}".format(year)
+    query = "SELECT stre, spd, jmp, endu, ins, dnk, ft, fg, tp, oiq, diq, drb, pss, reb, hgt, three, A, B, Di, Dp, Po, Ps, R, ovr from Players where min > 0 and season != {}".format(year)
     c.execute(query)
     results = c.fetchall()
     return results
@@ -33,7 +33,7 @@ def getDataSets(c, year):
 def getEstimator(my_columns):
     classifier = tf.estimator.DNNClassifier(
         feature_columns=my_columns,
-        hidden_units=[500,400,300,150],
+        hidden_units=[40,20,10],
         n_classes=100)
     return classifier
 
@@ -99,22 +99,22 @@ def print_pred(predictions, test_y):
 def main():
     my_columns = []
     c = tryConnect()
-    results = getDataSets(c, 2024)
-    test = getDataSet(c, 2024)
+    results = getDataSets(c, 2020)
+    test = getDataSet(c, 2020)
     col_names = [description[0] for description in c.description]
     
     #set up data
     training_data = pd.DataFrame(results, columns=col_names)
-    training_data = training_data.drop(['firstName', 'lastName', 'pos'], axis=1)
+    #training_data = training_data.drop(['firstName', 'lastName', 'pos'], axis=1)
     test_data = pd.DataFrame(test, columns=col_names)
-    test_data = test_data.drop(['firstName', 'lastName', 'pos'], axis=1)
+    #test_data = test_data.drop(['firstName', 'lastName', 'pos'], axis=1)
     train_y = training_data.pop('ovr')
     test_y = test_data.pop('ovr')
 
     my_columns = []
-    col_names.remove('firstName')
+    '''col_names.remove('firstName')
     col_names.remove('lastName')
-    col_names.remove('pos')
+    col_names.remove('pos')'''
     col_names.remove('ovr')
     for val in col_names:
         my_columns.append(tf.feature_column.numeric_column(key=val))
@@ -124,7 +124,7 @@ def main():
     print("\n\nstarting training\n\n")
     classifier.train(
         input_fn=lambda: input_fn(training_data, train_y, training=True),
-        steps=1000)
+        steps=10000)
     '''print("\n\ndone training\n\n")
     eval_result = classifier.evaluate(
         input_fn=lambda: input_fn(test_data, test_y, training=False))
