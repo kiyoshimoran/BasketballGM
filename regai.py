@@ -31,8 +31,10 @@ def print_pred(predictions, test_y):
     #for test_data, expec in zip(predictions, test_y):
         #class_id = test_data['class_ids'][0]
         #probability = test_data['probabilities'][class_id]
+        
         pred = int(predictions[i])
         expec = test_y[i]
+        print("predicted: {}, actual: {}".format(pred, expec))
         #print("X=%s, Predicted=%s" % (expec, pred))
         if pred == expec:
             perfect += 1
@@ -40,8 +42,8 @@ def print_pred(predictions, test_y):
             within_3 += 1
         if within(pred, expec, 5):
             within_5 += 1
-        if within(pred, expec, 10):
-            within_10 += 1
+        #if within(pred, expec, 10):
+        #    within_10 += 1
         if pred > expec:
             over_est += 1
         else:
@@ -58,8 +60,8 @@ def print_pred(predictions, test_y):
         format(within_3, (within_3 / total) * 100))
     print("{}, or {:.1f}%  of predictions were within 5 of actual value\n".
         format(within_5, (within_5 / total) * 100))
-    print("{}, or {:.1f}%  of predictions were within 10 of actual value\n".
-        format(within_10, (within_10 / total) * 100))
+    #print("{}, or {:.1f}%  of predictions were within 10 of actual value\n".
+    #    format(within_10, (within_10 / total) * 100))
     print("{}, or {:.1f}%  of predictions were above the actual value\n".
         format(over_est, (over_est / total) * 100))
     print("{}, or {:.1f}%  of predictions were below the actual value\n".
@@ -74,18 +76,38 @@ def tryConnect():
         print(e)
     return c
 
+def getTeamdata(c, year):
+    startSeason = 2019
+    query = "SELECT distinct season from Players"
+    c.execute(query)
+    seasons = c.fetchall()
+    print("getTeamdata seasons: {}".format(seasons))
+    query = "SELECT tid, stre, spd, jmp, endu, ins, dnk, ftskill, fgskill, tpskill, oiq, diq, drbskill, pss, reb, hgt, three, A, B, Di, Dp, Po, Ps, R from Players where min > 0 and tid >= 0 and season = {}".format(year)
+    c.execute(query)
+    results = c.fetchall()
+    teams = [[] for y in range(30)]
+    #print(teams)
+    for row in results:
+        teams[row[0]].append(row[1:])
+    return teams
+
 def getDataSet(c, year):
-    query = "SELECT stre, spd, jmp, endu, ins, dnk, ft, fg, tp, oiq, diq, drb, pss, reb, hgt, three, A, B, Di, Dp, Po, Ps, R, ovr from Players where min > 0 and season = {}".format(year)
+    query = "SELECT stre, spd, jmp, endu, ins, dnk, ftskill, fgskill, tpskill, oiq, diq, drbskill, pss, reb, hgt, three, A, B, Di, Dp, Po, Ps, R, ovr from Players where min > 0 and season = {}".format(year)
     c.execute(query)
     results = c.fetchall()
     return results
 
 def getDataSets(c, year):
-    query = "SELECT stre, spd, jmp, endu, ins, dnk, ft, fg, tp, oiq, diq, drb, pss, reb, hgt, three, A, B, Di, Dp, Po, Ps, R, ovr from Players where min > 0 and season != {}".format(year)
+    query = "SELECT stre, spd, jmp, endu, ins, dnk, ftskill, fgskill, tpskill, oiq, diq, drbskill, pss, reb, hgt, three, A, B, Di, Dp, Po, Ps, R, ovr from Players where min > 0 and season != {}".format(year)
     c.execute(query)
     results = c.fetchall()
     return results
 
+def getTeamWins(c, year):
+    query = "SELECT tid, won from Teams where season = {} order by tid".format(year)
+    c.execute(query)
+    results = c.fetchall()
+    return results
 
 def cleanData(data, cols):
     dataSet = pd.DataFrame(data, columns=cols)
@@ -170,6 +192,22 @@ def buildRegModel(dim, regress=False):
 
     return model
 
+def buildTeamModel(dim, regress=False):
+    model = keras.Sequential()
+    model.add(Dense(360, input_dim=dim, activation="relu"))
+    model.add(Dense(180, activation="relu"))
+    model.add(Dense(100, activation="relu"))
+    model.add(Dense(50, activation="relu"))
+    model.add(Dense(20, activation="relu"))
+    model.add(Dense(10, activation="relu"))
+    model.add(Dense(5, activation="relu"))
+    #model.add(Dense(2, activation="relu"))
+
+    if regress:
+        model.add(Dense(1, activation="linear"))
+
+    return model
+
 def saveModel(model, name):
     # serialize model to JSON
     model_json = model.to_json()
@@ -195,12 +233,36 @@ def loadModel(name):
     return loaded_model
 
 def main():
+    season = 2021
     my_columns = []
     c = tryConnect()
-    results = getDataSets(c, 2024)
-    test = getDataSet(c, 2024)
+    results = getDataSets(c, 2021)
+    test = getDataSet(c, 2021)
     my_columns = [description[0] for description in c.description]
+    
+    teams = getTeamdata(c, 2023)
+    wins = getTeamWins(c, 2023)
+    for i, team in enumerate(teams):
+        teams[i] = list(sum(teams[i], ()))
+        while len(teams[i]) < 345:
+            teams[i].append(0)
 
+    for i, w in enumerate(wins):
+        wins[i] = wins[i][1]
+    team_data = pd.DataFrame(teams)
+    team_data = team_data.fillna(value=0)
+    print(wins)
+    #team_data = np.array(teams)
+    
+    model = loadModel("winsModelTakeOne")
+    #model = buildTeamModel(team_data.shape[1], regress=True)
+    opt = keras.optimizers.Adam(lr=1e-3, decay=1e-3 / 200)
+    model.compile(loss="mean_absolute_percentage_error", optimizer=opt)
+    model.fit(team_data, wins, validation_split=0.3, epochs=2000, batch_size=6, verbose=1)
+    preds = model.predict(team_data)
+    print_pred(preds, wins)
+    saveModel(model, "winsModelTakeOne")
+    '''
     training_data = pd.DataFrame(results, columns=my_columns)
     test_data = pd.DataFrame(test, columns=my_columns)
     train_y = training_data.pop('ovr')
@@ -209,16 +271,18 @@ def main():
 
     #training_data, train_y, my_columns = cleanData(results, col_names)
     #test_data, test_y, my_columns = cleanData(test, col_names)
-
+    
+    #model = buildTeamModel(team_data.shape[1], regress=True)
     model = loadModel('regModelTakeOne')
     #model = buildRegModel(training_data.shape[1], regress=True)
     opt = keras.optimizers.Adam(lr=1e-3, decay=1e-3 / 200)
-    #model.compile(loss="mean_absolute_percentage_error", optimizer=opt)
+    model.compile(loss="mean_absolute_percentage_error", optimizer=opt)
 
-    #print("training model...")
-    #model.fit(training_data, train_y, validation_data=(test_data, test_y), epochs=5000, batch_size=100)
+    print("training model...")
+    #verbose: 0 = silent, 1 = progress bar, 2 = one line per epoch.
+    model.fit(training_data, train_y, validation_data=(test_data, test_y), epochs=500, batch_size=100, verbose=2)
 
-    #saveModel(model, "regModelTakeOne")
+    saveModel(model, "regModelTakeOne")
     print("making predictions...")
     preds = model.predict(test_data)
     print_pred(preds, test_y)
@@ -231,8 +295,7 @@ def main():
     std = np.std(absPercentDiff)
 
     print("mean: {:.2f}%, std: {:.2f}%".format(mean, std))
-
-
+    '''
 
 
 if __name__=="__main__":
