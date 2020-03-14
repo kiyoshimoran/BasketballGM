@@ -52,6 +52,7 @@ public class Team {
                 ", '" + region + '\'' +
                 ", '" + name + '\'' +
                 ", '" + abbrev + '\'' +
+                ", " + season +
                 ", " + getRecord(seasons, season) +
                 //", " + seasons.get(0).getExpenses().getSalary().getAmount() +
                 ')';

@@ -49,7 +49,7 @@ public class UpdateDB {
         Commissioner commish; // = new Commissioner(Teams, Players);
 
         Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.PRIVATE).create();
-        String filepath = "C:\\Users\\kiyos\\Documents\\My shit\\BasketballGM\\BBGM_League_1_2024_draft_lottery.json";
+        String filepath = "C:\\Users\\kiyos\\Documents\\My shit\\BasketballGM\\BBGM_League_1_2019_re_sign_players.json";
 
         //parse json
         try (Reader reader = new FileReader(filepath)) {
@@ -105,9 +105,8 @@ public class UpdateDB {
     public void addTeams(List<Team> teams, int season) {
         Statement stmt;
         String add;
-        String table = "Teams" + Integer.toString(season);
-        String createTable = "CREATE TABLE IF NOT EXISTS " + table + " (tid int, cid int, did int, region varchar(20), " +
-                "name varchar(20), abbrev char(3), won int, lost int, PRIMARY KEY (tid));";
+        String createTable = "CREATE TABLE IF NOT EXISTS Teams (tid int, cid int, did int, region varchar(20), " +
+                "name varchar(20), abbrev char(3), season int, won int, lost int, PRIMARY KEY (tid));";
         System.out.println(createTable);
         try {
             OpenConnection();
@@ -116,8 +115,8 @@ public class UpdateDB {
             stmt.executeUpdate(createTable);
             for (Team t : teams) {
                 //System.out.println("salary: " + t.getSeasons().get(0).getExpenses().getSalary().getAmount());
-                add = "INSERT INTO " + table + " VALUES" + t.toSQL(season);
-                //System.out.println(add);
+                add = "INSERT INTO Teams VALUES" + t.toSQL(season);
+                System.out.println(add);
                 stmt = connection.createStatement();
                 stmt.executeUpdate(add);
             }

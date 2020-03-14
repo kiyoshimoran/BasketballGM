@@ -63,9 +63,8 @@ public class GM {
     public ObservableList<Team> getTeams(int season)
     {
         ObservableList<Team> Teams = FXCollections.observableArrayList();
-        String table = "Teams" + Integer.toString(season);
-        tryMakeTable(table);
-        String query = "SELECT * from " + table;
+        //(table);
+        String query = "SELECT * from Teams where season = " + season;
         System.out.println(query);
         UpdateDB udb = new UpdateDB();
         try
